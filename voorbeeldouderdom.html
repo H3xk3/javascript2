@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <p>Geef je leeftijd en klik op de knop:</p>
+<input id="ouderdom" value="18">
+<button onclick="checkFunction1()">Check</button>
+<p id="boodschap"></p>
+    <script>
+        "use strict";
+        function checkFunction1() {
+	let ouderdom, magKiezen;
+	ouderdom = document.getElementById("ouderdom").value;
+	if(ouderdom < 18){
+		magKiezen =  "Te jong";
+	}
+	else{
+		magKiezen =  "Oud genoeg";
+	}
+	document.getElementById("boodschap").innerHTML = magKiezen + " om te stemmen.";
+}
+function checkFunction2() {
+	let ouderdom, magKiezen;
+	ouderdom = document.getElementById("ouderdom").value;
+	magKiezen = (ouderdom < 18) ? "Te jong":"Oud genoeg";
+	document.getElementById("boodschap").innerHTML = magKiezen + " om te stemmen.";
+	}
+    </script>
+</body>
+</html>
