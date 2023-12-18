@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Verzendkost Berekening</title>
+</head>
+<body>
+    <p>De Default verzendkosten worden berekend voor een verzending binnen België. Indien u buiten België woont, maar nog altijd in Europa dient u dit hieronder aan te geven. Verzendingen buiten Europa doen we niet.</p>
+
+    <form id="verzenden">
+        <label>
+            <input type="checkbox" id="buitenBelgie"> Buiten België, maar binnen Europa.
+        </label>
+        <br>
+        <input type="button" value="Bereken verzendingskost" onclick="berekenVerzendKost()">
+    </form>
+
+    <div id="resultaat"></div>
+
+    <script>
+        "use strict";
+        function berekenVerzendKost() {
+            let buitenBelgie = document.getElementById('buitenBelgie');
+            let isBuitenBelgie = buitenBelgie.checked;
+
+            var verzendKost = isBuitenBelgie ? 15 : 10;
+            var verzendText = isBuitenBelgie
+                ? "U woont buiten België, maar nog binnen Europa en betaalt de verzendkost:"
+                : "U woont binnen België en betaalt de verzendkost:";
+            
+            document.getElementById('resultaat').innerHTML = verzendText + ' ' + verzendKost;
+        }
+    </script>
+</body>
+</html>
