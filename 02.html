@@ -6,6 +6,21 @@
     <title>Document</title>
 </head>
 <body>
-    
+    <script>
+        "use strict";
+        function functieMetTweeArgumenten(a, b) {
+console.log(`a: ${a}`);
+   console.log(`b: ${b}`);
+   console.log(`Er zijn ${arguments.length} arguments doorgegeven.`);
+
+   let lengte = arguments.length;
+   for (let i = 0; i < lengte; i++) {
+   		console.log(`argument ${i} = ${arguments[i]}`);
+   }
+}
+
+functieMetTweeArgumenten(5, 8, 4, 2);
+
+    </script>
 </body>
 </html>
