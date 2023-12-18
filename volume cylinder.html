@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cilinder Volume Berekenen</title>
+</head>
+<body>
+
+    <label for="hoogteInput">Hoogte:</label>
+    <input type="number" id="hoogteInput">
+
+    <label for="diameterInput">Diameter:</label>
+    <input type="number" id="diameterInput">
+
+    <button onclick="berekenVolume()">Bereken Volume</button>
+
+    <div id="resultaat"></div>
+
+    <script>
+        function Cilinder(hoogte, diameter) {
+            this.hoogte = hoogte;
+            this.diameter = diameter;
+        }
+
+        Cilinder.prototype.volume = function() {
+            var straal = this.diameter / 2;
+            var volume = Math.PI * straal * straal * this.hoogte;
+            return volume.toFixed(4);
+        };
+
+        function berekenVolume() {
+            var hoogte = parseFloat(document.getElementById('hoogteInput').value);
+            var diameter = parseFloat(document.getElementById('diameterInput').value);
+
+            if (!isNaN(hoogte) && !isNaN(diameter)) {
+                var cilinder = new Cilinder(hoogte, diameter);
+                var resultaatElement = document.getElementById('resultaat');
+                resultaatElement.textContent = 'Volume: ' + cilinder.volume();
+            } else {
+                alert('Voer geldige getallen in voor hoogte en diameter.');
+            }
+        }
+    </script>
+
+</body>
+</html>
