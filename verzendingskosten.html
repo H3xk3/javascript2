@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Verzendingskost Berekening</title>
+</head>
+<body>
+    <p>Verzendingskosten voor een pakje worden berekend voor een verzending binnen België of buiten België maar nog wel binnen Europa.</p>
+
+    <form id="verzendingsForm">
+        <label>
+            <input type="checkbox" id="buitenBelgie"> Buiten België, maar binnen Europa
+        </label>
+        <br>
+        <input type="submit" value="Bereken Verzendingskost" onclick="berekenVerzendingsKost()">
+    </form>
+
+    <script>
+        "use strict";
+        function berekenVerzendingsKost() {
+            var buitenBelgie = document.getElementById('buitenBelgie');
+            var binnenBelgie = !buitenBelgie.checked;
+            var binnenEuropa = buitenBelgie.checked;
+
+            var verzendingsKost = binnenBelgie ? 10 : 15;
+            var verzendingsText = binnenBelgie
+                ? "U woont binnen België en betaalt de verzendingskost:"
+                : "U woont buiten België, maar nog binnen Europa en betaalt de verzendingskost:";
+            
+            document.write(verzendingsText, verzendingsKost);
+        }
+    </script>
+</body>
+</html>
