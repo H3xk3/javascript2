@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>argumenteert</title>
+</head>
+<body>
+    <script>
+        "use strict";
+        let som = function() {
+            var totaal = 0;
+
+            for (let i = 0; i < arguments.length; i++) {
+                if (typeof arguments[i] === 'number') {
+                    totaal += arguments[i];
+                }
+            }
+
+            document.write('De som is:', totaal);
+        };
+
+        
+        som(4, 8, 15);
+        som(2, 4); 
+        som("Jan", 20, 5); 
+    </script>
+</body>
+</html>
+
+</body>
+</html>
