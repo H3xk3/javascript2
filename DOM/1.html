@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .groen{
+            color: green;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Welkom</h1>
+        <a href="http://www.google.be">click mij</a>
+        <p id="eersteP" class="vet">Welkom op mijn <strong>site</strong>. </p>
+        <p class="vet">En nog een vette tekst.</p>
+        <p id="info" style="color:green">Hier vind je alle informatie over mij.</p>
+        <a href="http://www.hbvl.be">www.hbvl.be</a>
+        <div id="content">
+            <h2>Links op mijn site</h2>
+            <p><a class="contentLinks" href="cv.html">Bekijk mijn <strong>CV</strong>.</a></p>
+            <p><a class="contentLinks" href="portfolio.html">Wil je mijn <strong>portfolio</strong> eens zien?</a></p>
+        </div>
+                <ul id="mijnUlId">
+                    <li>lijstItem1</li>
+                    <li>lijstItem2</li>
+                    <li>lijstItem3</li>
+                </ul>
+                <button>knop1</button>
+                <button>knop2</button>
+                <button>knop3</button>
+            <script>
+                "use strict";
+                let alleLinks = document.getElementsByTagName("a");
+                let lengte = alleLinks.length;
+                for (let i = 0; i < lengte; i++) {
+                    console.log(alleLinks[i].innerHTML);
+                    }
+                let paragraaf = document.getElementById("eersteP");
+                    console.log(paragraaf);
+                    console.log(paragraaf.innerHTML);
+                    console.log(paragraaf.innerText);
+                let vetClass = document.getElementsByClassName("vet");
+                    console.log(vetClass);
+                let vetClass2 = document.getElementsByClassName("vet")[1];
+                    console.log(vetClass2);
+                    console.log(vetClass2.innerText);
+                let content = document.getElementById("content");
+                    console.log(content);
+                    console.log(content.innerHTML);
+                    console.log(content.innerText);
+                    console.log(document.getElementById("content"));
+                    console.log(document.getElementById("content").innerHTML);
+                    console.log(document.getElementById("content").innerText);   
+                let contentLinks = document.getElementsByClassName("contentLinks");
+                let lengte2 = contentLinks.length;
+                for (let i = 0; i < lengte2; i++) {
+                        console.log(contentLinks[i].innerText);
+                    }
+                let eersteElementMetClass = document.querySelector(".vet");
+                    console.log(eersteElementMetClass); 
+                let alleElementenMetClass = document.querySelectorAll(".vet");
+                    console.log(alleElementenMetClass);  
+                let klasse = document.getElementById("eersteP").getAttribute("class");
+                    console.log(klasse);
+                let doelVanEersteA = document.getElementsByTagName('a')[0].getAttribute("target");
+                    console.log(doelVanEersteA);
+                    document.getElementsByTagName("h1")[0].setAttribute("class", "groen");
+                    document.getElementById("eersteP").setAttribute("class", "groen");
+                    document.getElementsByTagName('a')[0].setAttribute("target", "_blank");
+                    console.log(document.getElementsByTagName('a')[0].getAttribute("target"));
+                    document.getElementsByTagName("p")[0].removeAttribute("class");
+                    let contentLinks1 = document.getElementsByClassName("contentLinks");
+                let lengte3 = contentLinks1.length;
+                for (let i = 0; i < lengte3; i++) {
+                    console.log(contentLinks1[i].getAttribute("href"));
+                    contentLinks1[i].setAttribute("href", "#");
+                    console.log(contentLinks1[i].getAttribute("href"));
+                    }
+                let kleur1 = document.getElementById("info").style.color;
+                    console.log(`kleur1: ${kleur1}`);
+                let kleur2 = window.getComputedStyle(document.getElementById("eersteP")).color;
+                    console.log(`kleur2: ${kleur2}`);
+                    document.getElementById("eersteP").style.color= "red";
+                    document.getElementsByClassName("contentLinks")[0].style.color= "green";
+                let childNodes = document.body.childNodes
+                for(let i=0; i<childNodes.length; i++) {
+                    console.log(childNodes[i])
+                    }
+                let nieuweLi = document.createElement("li");
+                let liTekst = document.createTextNode("lijstItem4"); 
+                    nieuweLi.appendChild(liTekst);
+                let ulOpvragen = document.getElementById("mijnUlId");
+                    ulOpvragen.appendChild(nieuweLi);
+                let nieuweKnop = document.createElement("button");
+                let textnode = document.createTextNode("knop0"); 
+                    nieuweKnop.appendChild(textnode);
+                let knoppen = document.body.getElementsByTagName("button");
+                    console.log(knoppen);
+                    document.body.insertBefore(nieuweKnop, knoppen[0]);
+                let legeTekst = document.createTextNode("\n");
+                    document.body.insertBefore(legeTekst, knoppen[1]);
+                    let nieuweLi1 = document.createElement("li");
+                let liTekst1 = document.createTextNode("lijstItem1.5"); 
+                    nieuweLi1.appendChild(liTekst1);
+                let ulOpvragen1 = document.getElementById("mijnUlId");
+                    ulOpvragen1.insertBefore(nieuweLi1,ulOpvragen1.children[1]);
+                let parent = document.body;
+                let child = document.getElementById("eersteP");
+                    parent.removeChild(child);
+            </script>
+</body>
+</html>
