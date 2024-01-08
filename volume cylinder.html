@@ -24,18 +24,18 @@
         }
 
         Cilinder.prototype.volume = function() {
-            var straal = this.diameter / 2;
-            var volume = Math.PI * straal * straal * this.hoogte;
+            let straal = this.diameter / 2;
+            let volume = Math.PI * straal * straal * this.hoogte;
             return volume.toFixed(4);
         };
 
         function berekenVolume() {
-            var hoogte = parseFloat(document.getElementById('hoogteInput').value);
-            var diameter = parseFloat(document.getElementById('diameterInput').value);
+            let hoogte = parseFloat(document.getElementById('hoogteInput').value);
+            let diameter = parseFloat(document.getElementById('diameterInput').value);
 
             if (!isNaN(hoogte) && !isNaN(diameter)) {
-                var cilinder = new Cilinder(hoogte, diameter);
-                var resultaatElement = document.getElementById('resultaat');
+                let cilinder = new Cilinder(hoogte, diameter);
+                let resultaatElement = document.getElementById('resultaat');
                 resultaatElement.textContent = 'Volume: ' + cilinder.volume();
             } else {
                 alert('Voer geldige getallen in voor hoogte en diameter.');
