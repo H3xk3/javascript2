@@ -25,47 +25,30 @@
 	<div id="hex"></div>
 	<label>Dag: <input id="dag" size="2"></label>
 	<label>Maand: <input id="maand" size="2"></label>
-	<label>Jaartal: <input id="jaartal" size="4"></label> <!-- Increased size for better input -->
+	<label>Jaartal: <input id="jaartal" size="4"></label> 
 	<input type="button" id="myBtn" value="Toon de kleur van je geboorte">
 
 	<script type="text/javascript">
 		"use strict";
-
-		// Object aanmaken genaamd geboortekleur
 		let geboortekleur = {
 			dag: "",
 			maand: "",
 			jaartal: "",
 			toonKleur: function() {
-				// Je zou hier de logica kunnen toevoegen om de kleur te bepalen op basis van de geboortedatum
-				// Bijvoorbeeld: this.dag + this.maand + this.jaartal om een kleurcode te genereren
 				let kleurcode = "#" + this.dag + this.maand + this.jaartal;
-				
-				// De kleur weergeven als tekst op het scherm
 				document.getElementById("hex").innerText = "Kleur: " + kleurcode;
-
-				// De achtergrond van de body instellen op de kleurwaarde
 				document.body.style.backgroundColor = kleurcode;
 			}
 		};
-
-		// Functie om geboortekleur te tonen wanneer de knop wordt geklikt
 		function displayGeboortekleur() {
-			// Waardes instellen vanuit de inputs en controleren op één cijfer
 			geboortekleur.dag = padZero(document.getElementById("dag").value);
 			geboortekleur.maand = padZero(document.getElementById("maand").value);
 			geboortekleur.jaartal = padZero(document.getElementById("jaartal").value);
-
-			// Methode toonKleur oproepen
 			geboortekleur.toonKleur();
 		}
-
-		// Functie om ervoor te zorgen dat getallen altijd twee cijfers hebben
 		function padZero(value) {
 			return value.length === 1 ? "0" + value : value;
 		}
-
-		// Event listener toevoegen aan de knop
 		document.getElementById("myBtn").addEventListener("click", displayGeboortekleur);
 	</script>
 </body>
