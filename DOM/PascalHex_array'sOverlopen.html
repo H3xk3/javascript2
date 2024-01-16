@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PascalHex_arraysOverlopen</title>
+</head>
+<body>
+    <script>
+        "use strict"
+        let designVakken = ["HTML&CSS", "Photoshop", "Interface", "Drupal"];
+        console.log("Design Vakken:", designVakken);
+
+        
+        let ontwikkelingVakken = ["Workflows", "Javascript", "jQuery", "PHP"];
+        console.log("Ontwikkeling Vakken:", ontwikkelingVakken);
+
+        
+        let alleVakken = designVakken.concat(ontwikkelingVakken);
+        console.log("Alle Vakken:", alleVakken);
+
+        
+        let puurProgrammeren = ontwikkelingVakken.slice(1); 
+        console.log("Puur Programmeren:", puurProgrammeren);
+
+        
+        let afdelingVakken = alleVakken.map(function(vak) {
+            return "FeDev - " + vak;
+        });
+        console.log("Afdeling Vakken:", afdelingVakken);
+
+        
+        ontwikkelingVakken.splice(ontwikkelingVakken.length, 0, "JS-OOP", "PHP-OOP");
+        console.log("Ontwikkeling Vakken na Splice:", ontwikkelingVakken);
+
+        
+        alleVakken.push("JS-OOP", "PHP-OOP");
+        console.log("Alle Vakken na Push:", alleVakken);
+
+        
+        alleVakken.unshift("Illustrator");
+        console.log("Alle Vakken na Unshift:", alleVakken);
+
+        
+        alleVakken.shift();
+        console.log("Alle Vakken na Shift:", alleVakken);
+
+        
+        let totaalAantalVakken = alleVakken.reduce(function(acc, vak) {
+            return acc + 1;
+        }, 0);
+        console.log("Totaal aantal vakken:", totaalAantalVakken);
+
+        
+        let punten = [87, 93, 75, 81, 74, 85, 92, 91, 67, 65];
+        console.log("Punten:", punten);
+
+        
+        let vakkenEnPunten = alleVakken.reduce(function(acc, vak, index) {
+            return acc + vak + " " + punten[index] + " - ";
+        }, "");
+        console.log("Vakken en Punten:", vakkenEnPunten);
+    </script>
+</body>
+</html>

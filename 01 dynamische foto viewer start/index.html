@@ -1,0 +1,46 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+	<title>Image gallery</title>
+	<link rel="stylesheet" type="text/css" href="gallery.css">
+</head>
+
+<body>
+	<p><img id="largeImg" src="550x400/ipad.jpg" alt="Large image"></p>
+	<div id="thumbs">
+		<a href="550x400/ipad.jpg" title="ipad"><img src="200x150/ipad.jpg"></a>
+	</div>
+	<button id="addPhotoBtn">Add Photo</button>
+
+	<script>
+	document.addEventListener("DOMContentLoaded", function() {
+		let largeImg = document.getElementById('largeImg');
+		let thumbsDiv = document.getElementById('thumbs');
+		let addPhotoBtn = document.getElementById('addPhotoBtn');
+		let fileNames = ["ipad.jpg", "dj.jpg", "ubuntu.jpg", "electronica.jpg"];
+		let counter = 1; 
+	function addPhoto() {
+		let newA = document.createElement('a');
+		let newImg = document.createElement('img');
+		let fileName = fileNames[counter];
+		let fileBaseName = fileName.slice(0, -4);
+		newA.href = "550x400/" + fileName;
+		newA.title = fileBaseName;
+		newImg.src = "200x150/" + fileName;
+		newImg.alt = fileBaseName;
+		newA.appendChild(newImg);
+		thumbsDiv.appendChild(newA);
+		counter++;
+	}
+	addPhotoBtn.addEventListener('click', addPhoto);
+	thumbsDiv.addEventListener('click', function(event) {
+		if (event.target.nodeName === 'IMG') {
+			largeImg.src = event.target.parentNode.href;
+		}
+	});
+	});
+	</script>
+</body>
+
+</html>

@@ -1,0 +1,63 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+    <title>Image gallery</title>
+    <link rel="stylesheet" type="text/css" href="gallery.css">
+</head>
+
+<body>
+    <p><img id="largeImg" src="550x400/ipad.jpg" alt="Large image"></p>
+    <div id="thumbs">
+        <a href="550x400/ipad.jpg" title="ipad">
+            <img src="200x150/ipad.jpg">
+        </a>
+    </div>
+    <button id="add">Voeg afbeelding toe</button>
+    <script>
+    let bestandsnamen = ["ipad.jpg", "dj.jpg", "ubuntu.jpg", "electronica.jpg"];
+    let teller = 1;
+    window.addEventListener("DOMContentLoaded", function() {
+        main();
+    });
+
+    function main() {
+        let largeImg = document.getElementById('largeImg');
+        let divThumbs = document.getElementById("thumbs");
+
+        document.getElementById('add').addEventListener('click', function() {
+            if (teller < bestandsnamen.length) {
+                let nieuweThumb = document.createElement("a");
+                let bestandsnaam = bestandsnamen[teller];
+                let bestandsnaamZonderExtentie = bestandsnaam.substring(0, bestandsnaam.length - 4);
+                let newHref = `550x400/${bestandsnaam}`;
+                console.log(newHref);
+                nieuweThumb.href = newHref;
+                nieuweThumb.title = bestandsnaamZonderExtentie
+
+                let nieuweImg = document.createElement("img");
+                nieuweImg.src = `200x150/${bestandsnaam}`;
+                nieuweImg.alt = bestandsnaamZonderExtentie
+                nieuweThumb.appendChild(nieuweImg);
+
+                divThumbs.appendChild(nieuweThumb);
+                teller++
+            }
+        });
+
+        document.getElementById('thumbs').addEventListener('click', function(e) {
+            console.log(e.target.nodeName);
+            console.log("e.target.tagName" + e.target.tagName);
+            if (e.target.nodeName === "IMG") {
+                //kan ook met e.target.tagName
+                let anchor = e.target.parentNode;
+                largeImg.src = anchor.href;
+                largeImg.alt = anchor.title;
+            }
+            e.preventDefault();
+        })
+    }
+    </script>
+</body>
+
+</html>
