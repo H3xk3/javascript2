@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <p id="paragraaf"></p>
+<button id="myBtn">Klik mij</button>
+    <script>
+        "use strict";
+        console.log(`this in hoofdscript: ${this}`); 
+        window.addEventListener("DOMContentLoaded", function () {
+        document.getElementById("myBtn")
+        .addEventListener("click", function () {
+            console.log(`this in function: ${this}`);
+            console.log(`${this.innerHTML}`);
+//this verwijst dus naar het object waar de huidige functie wordt voor uitgevoerd: de button waarop geklikt is. Er kunnen dan opdrachten op uitgevoerd worden
+   }); });
+
+    </script>
+</body>
+</html>

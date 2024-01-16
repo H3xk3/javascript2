@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<style>
+#container {
+    width: 300px;
+}
+#rood {
+    width: 75px;
+    height: 100px;
+    background-color: red;
+    float: left;
+    cursor: pointer;
+    padding: 10px;
+}
+#onder {
+    width: 300px;
+    height: 300px;
+    background-color: lightgrey;
+    clear: both;
+    padding: 50px;
+    color: white;
+}
+#geel {
+width: 75px;
+   height: 100px;
+   background-color: yellow;
+   cursor: pointer;
+   float: left;
+   padding: 10px;
+}
+#zwart {
+width: 75px;
+   height: 100px;
+   background-color: black;
+   float: left;
+   cursor: pointer;
+   padding: 10px;
+   color: white;
+}
+
+
+</style>
+<body>
+    <div id="container">
+        <div id="boven">
+             <div id="zwart">Zwart</div>
+             <div id="geel">Geel</div>
+             <div id="rood">Rood</div>
+           </div>
+           <div id="onder"></div>
+        </div>
+        
+    <script>
+        "use strict";
+      
+    window.addEventListener("DOMContentLoaded", function () {
+document.getElementById("zwart")
+.addEventListener("mouseover", setColorBlack);
+document.getElementById("geel")
+.addEventListener("mouseover", setColorYellow);
+document.getElementById("rood")
+.addEventListener("mouseover", setColorRed);
+});
+function setColorBlack() {
+document.getElementById("onder").style.backgroundColor
+ = "black";
+document.getElementById("onder").innerText = this.innerText;
+}
+function setColorYellow() {
+document.getElementById("onder").style.backgroundColor
+ = "yellow";
+   document.getElementById("onder").innerText = this.innerText;
+}
+function setColorRed() {
+document.getElementById("onder").style.backgroundColor
+ = "red";
+   document.getElementById("onder").innerText = this.innerText;
+}
+
+   
+
+    </script>
+</body>
+</html>
