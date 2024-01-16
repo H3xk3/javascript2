@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>jeNaam-golft</title>
+</head>
+<body>
+
+<script>
+    "use strict";
+    let alleResultaten = [];
+    function Resultaat(golfbaan, datum, hole, par, strokes) {
+        this.golfbaan = golfbaan;
+        this.datum = datum;
+        this.hole = hole;
+        this.par = par;
+        this.strokes = strokes;
+        this.score = "";
+        this.setScore = function () {
+            if (this.strokes === 1) {
+                this.score = "Hole-in-one!";
+            } else if (this.strokes <= this.par - 2) {
+                this.score = "Eagle";
+            } else if (this.strokes <= this.par - 1) {
+                this.score = "Birdie";
+            } else if (this.strokes === this.par) {
+                this.score = "Par";
+            } else if (this.strokes === this.par + 1) {
+                this.score = "Bogey";
+            } else if (this.strokes === this.par + 2) {
+                this.score = "Double Bogey";
+            } else {
+                this.score = "No Score";
+            }
+        };
+        this.save = function () {
+            alleResultaten.push(this);
+        };
+        this.setScore();
+        this.save();
+    }
+    new Resultaat("Groene Weide", "01/01/2020", 1, 10, 13);
+    new Resultaat("Groene Weide", "01/01/2020", 2, 12, 12);
+    new Resultaat("Konings Hooi", "08/01/2020", 3, 12, 1);
+    function show() {
+        for (let i = 0; i < alleResultaten.length; i++) {
+            const resultaat = alleResultaten[i];
+            console.log("Golfbaan:", resultaat.golfbaan);
+            console.log("Datum:", resultaat.datum);
+            console.log("Hole:", resultaat.hole);
+            console.log("Par:", resultaat.par);
+            console.log("Strokes:", resultaat.strokes);
+            console.log("Score:", resultaat.score);
+            console.log("\n");
+        }
+    }
+    show();
+</script>
+
+</body>
+</html>
