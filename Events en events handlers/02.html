@@ -46,44 +46,37 @@ width: 75px;
 
 </style>
 <body>
+    <button id="knop">klik mij</button>
     <div id="container">
-        <div id="boven">
-             <div id="zwart">Zwart</div>
-             <div id="geel">Geel</div>
-             <div id="rood">Rood</div>
-           </div>
-           <div id="onder"></div>
-        </div>
+            <div id="boven">
+                <div id="zwart">Zwart</div>
+                <div id="geel">Geel</div>
+                <div id="rood">Rood</div>
+            </div>
+        <div id="onder"></div>
+    </div>
         
     <script>
         "use strict";
-      
-    window.addEventListener("DOMContentLoaded", function () {
-document.getElementById("zwart")
-.addEventListener("mouseover", setColorBlack);
-document.getElementById("geel")
-.addEventListener("mouseover", setColorYellow);
-document.getElementById("rood")
-.addEventListener("mouseover", setColorRed);
+        let grootVak;
+        window.addEventListener("DOMContentLoaded", function () {
+let alleVakjes = document.getElementById("boven").children;
+Array.from(alleVakjes).forEach(function (vak) {
+vak.addEventListener("mouseover", setColor);
 });
-function setColorBlack() {
-document.getElementById("onder").style.backgroundColor
- = "black";
-document.getElementById("onder").innerText = this.innerText;
-}
-function setColorYellow() {
-document.getElementById("onder").style.backgroundColor
- = "yellow";
-   document.getElementById("onder").innerText = this.innerText;
-}
-function setColorRed() {
-document.getElementById("onder").style.backgroundColor
- = "red";
-   document.getElementById("onder").innerText = this.innerText;
-}
 
-   
+});
 
+function setColor(){
+//this is de div waar je muis over gaat
+   let kleur = window.getComputedStyle(this).getPropertyValue('background-color');
+//Vraag de volledige style op van this
+//vervolgens de waarde van de property background-color
+//opgelet, de JS benaming verschilt van de CSS benaming
+   document.getElementById("onder").style.backgroundColor
+ = kleur;
+	document.getElementById("onder").innerText = this.innerText;
+}
     </script>
 </body>
 </html>

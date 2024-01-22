@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <button id="knop">klik mij</button>
+
+
+    <script>
+        "use strict";
+window.addEventListener("DOMContentLoaded", function () {
+let button = document.getElementById('knop');
+button.addEventListener("mousedown", function (eventObject) {
+if (eventObject.which == 1)
+console.log("Linkse muisknop");
+else if (eventObject.which == 2)
+console.log("Middelste muisknop");
+else if (eventObject.which == 3)
+console.log("Rechtse muisknop");
+});
+})
+
+    </script>
+</body>
+</html>

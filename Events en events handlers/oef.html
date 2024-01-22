@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <ul id="mijnUl">
+        <li>lijstitem1</li>
+           <li>lijstitem2</li>
+           <li>lijstitem3</li>
+        </ul>
+        <script>
+            'use strict';
+            window.addEventListener("DOMContentLoaded", function (){
+document.getElementById("mijnUl").addEventListener("click", handleClickOpUl);
+})
+function handleClickOpUl(e){
+console.clear();
+   console.log(`this: ${this}`);
+   console.log(`target: ${e.target}`);
+   console.log(`currentTarget: ${e.currentTarget}`);
+   console.log(`target.innerHTML: ${e.target.innerHTML}`);
+   console.log(`currentTarget.innerHTML: ${e.currentTarget.innerHTML}`);
+}
+
+        </script>
+</body>
+</html>

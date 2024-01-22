@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<style>
+    #box {
+   width: 500px;
+   height: 500px;
+background-color: #ccc;
+}
+
+</style>
+<body>
+    
+<div id="box">
+    <a id="link" href="http://www.google.be">Link naar <span id="span" style="font-weight:bold">Google</span> </a>
+    </div>
+    
+    <script>
+        "use strict";
+        window.addEventListener("DOMContentLoaded", function () {
+            document.getElementById("link").addEventListener("click", handleClick, true);
+document.getElementById("box").addEventListener("click", handleClick, true);
+document.getElementById("span").addEventListener("click", handleClick, true);
+document.addEventListener("click", handleClick, true)
+document.addEventListener("click", handleClick);
+})
+function handleClick(e) {
+console.log(this);
+e.preventDefault();
+}
+
+    </script>
+</body>
+</html>
