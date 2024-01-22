@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pascal Hex is Beroemd</title>
+</head>
+<body>
+     <script>
+        function Mensen(naam) {
+        this.naam = naam;
+        }
+        function Superstar(naam, expertise) {
+        Mensen.call(this, naam);
+        this.expertise = expertise;
+        }
+        Superstar.prototype = Object.create(Mensen.prototype);
+        Superstar.prototype.writeData = function() {
+        document.write(`Wist je dat ${this.naam} een ${this.expertise} was?<br>`);
+        };
+        let elvis = new Superstar("Elvis", "zanger");
+        elvis.writeData();
+        function Atleet(naam, sport) {
+        Mensen.call(this, naam);
+        this.sport = sport;
+        }
+        Atleet.prototype = Object.create(Mensen.prototype);
+        Atleet.prototype.writeData = function() {
+        document.write(`Wist je dat ${this.naam} uitblinkt in ${this.sport}?<br>`);
+        };
+        let tiger = new Atleet("Tiger", "golf");
+        tiger.writeData();
+    </script>
+
+</body>
+</html>

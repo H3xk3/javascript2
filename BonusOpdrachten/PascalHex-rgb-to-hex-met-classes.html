@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pascal Hex RGB to Hex</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+    </style>
+</head>
+<body>
+    <form id="myForm">
+        R: <input type="text" id="kleurRIn" maxlength="3" size="3" />
+        G: <input type="text" id="kleurGIn" maxlength="3" size="3" />
+        B: <input type="text" id="kleurBIn" maxlength="3" size="3" />
+        <input type="button" id="bereken" value="Bereken de kleur" />
+        <input type="text" id="hexWaardeOut">
+    </form>
+    <script>
+        "use strict";
+
+        class KleurHex {
+            constructor(r, g, b) {
+                this.r = r;
+                this.g = g;
+                this.b = b;
+            }
+
+            addLeadingZero(value) {
+                return value.length === 1 ? '0' + value : value;
+            }
+
+            hexString() {
+                const hexR = this.addLeadingZero(this.r.toString(16).toUpperCase());
+                const hexG = this.addLeadingZero(this.g.toString(16).toUpperCase());
+                const hexB = this.addLeadingZero(this.b.toString(16).toUpperCase());
+                return `#${hexR}${hexG}${hexB}`;
+            }
+        }
+
+        function berekenKleur() {
+            const r = document.getElementById('kleurRIn').value;
+            const g = document.getElementById('kleurGIn').value;
+            const b = document.getElementById('kleurBIn').value;
+
+            const mijnKleurHex = new KleurHex(parseInt(r, 10), parseInt(g, 10), parseInt(b, 10));
+
+            const hexWaardeOut = document.getElementById('hexWaardeOut');
+            const hexString = mijnKleurHex.hexString();
+
+            hexWaardeOut.value = hexString;
+            document.body.style.backgroundColor = hexString;
+        }
+
+        document.getElementById('bereken').addEventListener('click', berekenKleur);
+    </script>
+</body>
+</html>

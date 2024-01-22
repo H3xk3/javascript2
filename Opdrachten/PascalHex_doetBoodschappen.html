@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>PascalHex_doetBoodschappen</title>
+    </head>
+<body>
+    <script>
+        "use strict";
+        let boodschappen = [];
+            boodschappen.push(["bruin boerenbrood", 2, "besteld"]);
+            boodschappen.push(["bio halfvolle melk", 1, "besteld"]);
+            boodschappen.push(["plat water", 6, "besteld"]);
+            boodschappen[0][2] = "geleverd";
+            boodschappen[1][2] = "nabesteld";
+            boodschappen[2][2] = "geleverd";
+        let inhoud = ["400g", "1l", "1,5l"];
+            boodschappen.forEach(function(boodschap, index) {
+            boodschap.splice(3, 0, "inhoud: " + inhoud[index]);
+            console.log(`${boodschap[0]} - aantal: ${boodschap[1]} - ${boodschap[3]} - status: ${boodschap[2]}`);
+        });
+    </script>
+</body>
+</html>

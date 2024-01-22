@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pascal Hex was laatst op de site</title>
+</head>
+<body>
+
+<div id="lastVisitInfo"></div>
+<button id="btnVerwijderMij">Verwijder Cookie</button>
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        function getCurrentDate() {
+            const now = new Date();
+            const formattedDate = `${now.getDate()}-${now.getMonth() + 1}-${now.getFullYear()} ${now.getHours()}:${now.getMinutes()}:${now.getSeconds()}`;
+            return formattedDate;
+        }
+        function getCookie(name) {
+            const cookies = document.cookie.split(';');
+            for (const cookie of cookies) {
+                const [cookieName, cookieValue] = cookie.split('=').map(c => c.trim());
+                if (cookieName === name) {
+                    return cookieValue;
+                }
+            }
+            return null;
+        }
+        function setCookie(name, value) {
+            document.cookie = `${name}=${value}; path=/`;
+        }
+        function reloadPage() {
+            location.reload();
+        }
+        const lastVisitInfo = document.getElementById("lastVisitInfo");
+        const btnVerwijderMij = document.getElementById("btnVerwijderMij");
+        const lastVisitDate = getCookie("laatstOpDeSite");
+        if (lastVisitDate) {
+            lastVisitInfo.innerHTML = `Je was hier de laatste keer op: ${lastVisitDate}`;
+        } else {
+            lastVisitInfo.innerHTML = "Dit is de eerste keer dat je op deze site komt.";
+            const currentDate = getCurrentDate();
+            setCookie("laatstOpDeSite", currentDate);
+        }
+        const currentDate = getCurrentDate();
+        setCookie("laatstOpDeSite", currentDate);
+        lastVisitInfo.innerHTML = `Je was hier de laatste keer op: ${currentDate}`;
+        btnVerwijderMij.addEventListener("click", function() {
+            document.cookie = "laatstOpDeSite=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+            reloadPage();
+        });
+    });
+</script>
+</body>
+</html>

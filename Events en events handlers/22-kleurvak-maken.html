@@ -1,25 +1,32 @@
 <!DOCTYPE html>
 <html>
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <style type="text/css">
         #container {
             width: 300px;
         }
+
         .colorBlock {
             width: 75px;
             height: 100px;
             float: left;
             cursor: pointer;
         }
+
         #rood {
             background-color: red;
         }
+
         #geel {
             background-color: yellow;
         }
+
         #zwart {
             background-color: black;
         }
+
         #onder {
             width: 300px;
             height: 300px;
@@ -27,30 +34,43 @@
             clear: both;
         }
     </style>
-    <title></title>
+    <title>Kleurvak maken</title>
     <script type="text/javascript">
         window.addEventListener("DOMContentLoaded", function () {
             main();
         })
         //er wordt een function main aangemaakt die al de code zal bevatten. Zo kunnen we vermijden dat al de code moeilijker leesbaar wordt doordat die in de function van de DOMContentLoaded zit.
+        let waardes = '0123456789ABCDEF';
+        let color = '#';
+            for (let i = 0; i < 6; i++) {
+            color += waardes.charAt(Math.floor(Math.random() * 16));
+            }
+            console.log(color);
         function main() {
             document.getElementById('knop').addEventListener('click', addColorBlock);
             document.getElementById("boven").addEventListener('mouseover', changeBackgroundColor);
             //de eventListener wordt dus toegevoegd aan de div met id "boven". In de eventhandler functie zal je dus moeten controleren of de target een element met de class "colorBlock" is.
-            function changeBackgroundColor(e) {
+        function changeBackgroundColor(e) {
+            if (e.target.className === "colorBlock") {
+                document.getElementById("onder").style.backgroundColor = window.getComputedStyle(e.target).getPropertyValue('background-color');
+                }
             }
             //Het veranderen van de achtergrondkleur 
             //De kleur die moet ingesteld worden, wordt opgehaald uit het event object. Let hierbij op dat e.target.style.background niet werkt voor de bestaande kleurvlakken, via getComputedStyle werkt het altijd.
-            function addColorBlock() {
+        function addColorBlock() {
+            let newDiv = document.createElement("div");
+            newDiv.className = "colorBlock";
+            newDiv.style.backgroundColor = getRandomColor();
+            document.getElementById('boven').appendChild(newDiv);
             }
             //Om een extra blokje te maken:
             //Elk nieuw blokje is een div, met class "colorBlock", de achtergrondkleur wordt gemaakt via een aparte functie getRandomColor().
-            function getRandomColor() {
-                let waardes = '0123456789ABCDEF';
-                let color = '#';
-                for (let i = 0; i < 6; i++) {
-                    color += waardes.charAt(Math.floor(Math.random() * 16));
-                }
+        function getRandomColor() {
+            let waardes = '0123456789ABCDEF';
+            let color = '#';
+            for (let i = 0; i < 6; i++) {
+                color += waardes.charAt(Math.floor(Math.random() * 16));
+            }
                 console.log(color);
                 return color;
             }
@@ -67,35 +87,27 @@
             bv. Math.floor(8,23656848) = 8
             Dus dan wordt de berekening charAt(8)
             */
-            function changeBackgroundColor(e) {
-                // Controleer of het doelelement een element is met de class "colorBlock"
-                if (e.target.classList.contains('colorBlock')) {
-                    // Haal de achtergrondkleur op van het aangeklikte kleur blokje
-                    let kleur = getComputedStyle(e.target).backgroundColor;
-                    
-                    // Pas de achtergrondkleur toe op het grote vlak
-                    document.getElementById('onder').style.backgroundColor = kleur;
-                }
-            }
-            function addColorBlock() {
-                let nieuwBlokje = document.createElement('div');
-                nieuwBlokje.className = 'colorBlock';
-                nieuwBlokje.style.backgroundColor = getRandomColor();
-                document.getElementById('boven').appendChild(nieuwBlokje);
-            }
-        };
+            };//einde main function
     </script>
 </head>
 <body>
     <div id="container">
         <button id="knop">Voeg extra kleurvlak toe.</button>
             <p>Hover over een kleur om deze toe te passen op het grote vlak.</p>
-        <div id="boven">
-            <div id="zwart" class="colorBlock"></div>
-            <div id="geel" class="colorBlock"></div>
-            <div id="rood" class="colorBlock"></div>
-        </div>
+                <div id="boven">
+                    <div id="zwart" class="colorBlock"></div>
+                    <div id="geel" class="colorBlock"></div>
+                    <div id="rood" class="colorBlock"></div>
+                </div>
         <div id="onder"></div>
     </div>
 </body>
 </html>
+
+
+
+
+
+
+
+

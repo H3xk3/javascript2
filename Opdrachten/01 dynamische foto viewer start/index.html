@@ -1,0 +1,64 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Image gallery</title>
+    <link rel="stylesheet" type="text/css" href="gallery.css">
+</head>
+<body>
+    <p><img id="LargeImg" src="550x400/ipad.jpg" alt="Large image"></p>
+    <div id="thumbs">
+        <a href="550x400/ipad.jpg" title="ipad"><img src="200x150/ipad.jpg"></a>
+    </div>
+    <button id="VoegFotoBij">Voeg Foto Toe</button>
+    <script>
+		'use strict';
+        document.addEventListener("DOMContentLoaded", function() {
+            let LargeImg = document.getElementById('LargeImg');
+            let KleineFoto = document.getElementById('thumbs');
+            let VoegFotoBij = document.getElementById('VoegFotoBij');
+            let Bestandsnaam = ["ipad.jpg", "dj.jpg", "ubuntu.jpg", "electronica.jpg"];
+            let teller = 1;
+            function addPhoto() {
+				if (teller < Bestandsnaam.length) {
+					let NieuweA = document.createElement('a');
+					let NieuweFoto = document.createElement('img');
+					let Bestand = Bestandsnaam[teller];
+					let Bestandsnaam2 = Bestand.slice(0, -4);
+					NieuweA.href = "550x400/" + Bestand;
+					NieuweA.title = Bestandsnaam2;
+					NieuweFoto.src = "200x150/" + Bestand;
+					NieuweFoto.alt = Bestandsnaam2;
+					NieuweA.appendChild(NieuweFoto);
+					KleineFoto.appendChild(NieuweA);
+					console.log("Nieuwe Foto Toegevoegd Src:", NieuweFoto.src);
+					teller++;
+				} else {
+					console.log("Geen Foto's meer om toe te voegen.");
+				}
+			}
+            VoegFotoBij.addEventListener('click', addPhoto);
+            KleineFoto.addEventListener('click', function(event) {
+                if (event.target.nodeName === 'IMG') {
+                    LargeImg.src = event.target.parentNode.href;
+                    event.preventDefault(); 
+                    console.log("Foto Geklikt Naam van Bestand:", event.target.parentNode.title);
+                    console.log("Nieuwe Foto Toegevoegd Src:", event.target.src);
+                }
+            });
+        });
+    </script>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
