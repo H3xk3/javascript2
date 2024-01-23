@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        "use strict";
+        let myFavMovie = {
+            titel: 'Puff the Magic Dragon',
+            tijdsduur: 30,
+            sterren: ['Puff', 'Jackie', 'Living Sneezes']
+            };
+            console.log(`Mijn favoriete film ${myFavMovie.titel} duurt ${myFavMovie.tijdsduur} minuten en de sterren van de film zijn: `);
+            let lengte = myFavMovie.sterren.length;
+            for (let i = 0; i < lengte; i++) {
+            console.log(myFavMovie.sterren[i])
+            }
+    </script>
+</body>
+</html>

@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<style>
+    .paragraaf{
+        cursor: pointer;
+    }
+</style>
+<body>
+    <p class="paragraaf">1 Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. </p>
+<p class="paragraaf">2 Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. </p>
+<p class="paragraaf">3 Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. </p>
+<script>
+    "use strict";
+    let paragrafen= document.getElementsByClassName('paragraaf');
+let aantalParagrafen = paragrafen.length;
+for (let i = 0; i < aantalParagrafen; i++) {
+paragrafen[i].addEventListener('click', maakVet);
+}
+function maakVet() {
+   //this: object waarvoor de function wordt uitgevoerd/dat het event doet optreden
+   console.log(`${this.innerHTML}`);
+   this.style.fontWeight = "bolder";
+};
+
+</script>
+</body>
+</html>

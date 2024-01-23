@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+    <meta charset="utf-8">
+    <title>Geboortekleur</title>
+    <style type="text/css">
+        html, body {
+            height: 100%;
+        }
+
+        #hex {
+            color: white; 
+            font: 64px/64px Verdana; 
+            height: 64px;
+            /*Vertical center*/
+            position: relative; 
+            top: 50%; 
+            margin-top: -32px;
+            /*Horizontal center*/
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <div id="hex"></div>
+    <label>Dag: <input id="dag" size="2"></label>
+    <label>Maand: <input id="maand" size="2"></label>
+    <label>Jaartal: <input id="jaartal" size="2"></label>
+    <input type="button" id="myBtn" value="Toon de kleur van je geboorte">
+
+    <script type="text/javascript">
+        "use strict";
+
+        var geboortekleur = {
+            dag: '',
+            maand: '',
+            jaartal: '',
+            toonKleur: function () {
+                // Hier kun je de kleur op basis van de geboortedatum bepalen
+                // Bijvoorbeeld: groen als de dag in de lente is, rood in de zomer, etc.
+                var kleur = 'lightblue';
+                document.body.style.backgroundColor = kleur;
+                document.getElementById('hex').innerText = 'Kleur: ' + kleur;
+            }
+        };
+
+        function displayGeboortekleur() {
+            // Waarden ophalen uit de inputs
+            geboortekleur.dag = document.getElementById('dag').value;
+            geboortekleur.maand = document.getElementById('maand').value;
+            geboortekleur.jaartal = document.getElementById('jaartal').value;
+
+            // Controle op 1 digit en aanpassen indien nodig
+            if (geboortekleur.dag.length === 1) {
+                geboortekleur.dag = '0' + geboortekleur.dag;
+            }
+            if (geboortekleur.maand.length === 1) {
+                geboortekleur.maand = '0' + geboortekleur.maand;
+            }
+
+            // Methode toonKleur oproepen
+            geboortekleur.toonKleur();
+        }
+
+        document.getElementById('myBtn').addEventListener('click', displayGeboortekleur);
+    </script>
+</body>
+</html>

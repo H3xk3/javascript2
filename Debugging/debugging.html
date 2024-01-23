@@ -1,0 +1,107 @@
+<!--
+  Copyright 2016 Google Inc.
+
+  Licensed under the Apache License, Version 2.0 (the "License");
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
+
+  http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+
+  limitations under the License.
+-->
+<!-- referenced in: https://developers.google.com/web/tools/chrome-devtools/javascript -->
+<!DOCTYPE html>
+<html>
+
+<head>
+    <link rel="shortcut icon" href="/devtools-samples/favicon-96x96.png">
+    <title>Demo: Get Started Debugging JavaScript with Chrome DevTools</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>
+    h1 {
+        font-size: 1.5em
+    }
+
+    input,
+    button {
+        min-width: 72px;
+        min-height: 36px;
+        border: 1px solid grey;
+    }
+
+    label,
+    input,
+    button {
+        display: block;
+    }
+
+    input {
+        margin-bottom: 1em;
+    }
+    </style>
+</head>
+
+<body>
+    <h1>Demo: Get Started Debugging JavaScript with Chrome DevTools</h1>
+    <label for="num1">Number 1</label>
+    <input placeholder="Number 1" id="num1">
+    <label for="num2">Number 2</label>
+    <input placeholder="Number 2" id="num2">
+    <button>Add Number 1 and Number 2</button>
+    <p></p>
+    <script>
+    /* Copyright 2016 Google Inc.
+     * 
+     * Licensed under the Apache License, Version 2.0 (the "License");
+     * you may not use this file except in compliance with the License.
+     * You may obtain a copy of the License at
+     * 
+     * http://www.apache.org/licenses/LICENSE-2.0
+     * 
+     * Unless required by applicable law or agreed to in writing, software
+     * distributed under the License is distributed on an "AS IS" BASIS,
+     * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+     * See the License for the specific language governing permissions and
+     * limitations under the License. */
+    function onClick() {
+        if (inputsAreEmpty()) {
+            label.textContent = 'Error: one or both inputs are empty.';
+            return;
+        }
+        updateLabel();
+    }
+
+    function inputsAreEmpty() {
+        if (getNumber1() === '' || getNumber2() === '') {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    function updateLabel() {
+        let addend1 = getNumber1();
+        let addend2 = getNumber2();
+        let sum = parseInt(addend1) + parseInt(addend2);/* hier stond eerst addend1 + addend2 zonder de parseInt*/
+        label.textContent = addend1 + ' + ' + addend2 + ' = ' + sum;
+    }
+
+    function getNumber1() {
+        return inputs[0].value;
+    }
+
+    function getNumber2() {
+        return inputs[1].value;
+    }
+    let inputs = document.querySelectorAll('input');
+    let label = document.querySelector('p');
+    let button = document.querySelector('button');
+    button.addEventListener('click', onClick);
+    </script>
+</body>
+
+</html>

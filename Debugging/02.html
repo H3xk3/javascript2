@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<style>
+    .paragraaf {
+cursor: pointer;
+}
+
+</style>
+<body>
+    <h1>Delegated events</h1>
+   <p class="paragraaf">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. </p>
+   <p class="paragraaf">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. </p>
+   <p class="paragraaf">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. </p>
+<button id="knop">Maak extra paragraaf</button>
+<script>
+    "use strict";
+    window.addEventListener("DOMContentLoaded", function () {
+document.getElementById('knop').addEventListener('click', addParagraaf);
+})
+function addParagraaf() {
+let newParagraaf = document.createElement("p");
+   let newParagraafText = document.createTextNode("Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.");
+   newParagraaf.className = "paragraaf";
+   newParagraaf.appendChild(newParagraafText);
+   document.body.insertBefore(newParagraaf, document.getElementById('knop'));
+}
+document.body.addEventListener('click', maakBolder);
+
+function maakBolder(e) {
+//target: refereert naar node waar event optreedt
+   console.log(e.target);
+   if (e.target.className === "paragraaf") {
+   		e.target.style.fontWeight = "bolder"
+   }
+}
+
+
+</script>
+</body>
+</html>
