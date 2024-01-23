@@ -26,7 +26,7 @@
 		<label>Maand: <input id="maand" size="2"></label>
 		<label>Jaartal: <input id="jaartal" size="4"></label> 
 		<input type="button" id="myBtn" value="Toon de kleur van je geboorte">
-			<script type="text/javascript">
+			<script>
 				"use strict";
 				let geboortekleur = {
 					dag: "",
@@ -38,16 +38,16 @@
 						document.body.style.backgroundColor = kleurcode;
 					}
 				};
-				function displayGeboortekleur() {
-					geboortekleur.dag = padZero(document.getElementById("dag").value);
-					geboortekleur.maand = padZero(document.getElementById("maand").value);
-					geboortekleur.jaartal = padZero(document.getElementById("jaartal").value);
+				function kleurfunctie() {
+					geboortekleur.dag = geboortekleuroef(document.getElementById("dag").value);
+					geboortekleur.maand = geboortekleuroef(document.getElementById("maand").value);
+					geboortekleur.jaartal = geboortekleuroef(document.getElementById("jaartal").value);
 					geboortekleur.toonKleur();
 				}
-				function padZero(value) {
+				function geboortekleuroef(value) {
 					return value.length === 1 ? "0" + value : value;
 				}
-				document.getElementById("myBtn").addEventListener("click", displayGeboortekleur);
+				document.getElementById("myBtn").addEventListener("click", kleurfunctie);
 			</script>
 </body>
 </html>
