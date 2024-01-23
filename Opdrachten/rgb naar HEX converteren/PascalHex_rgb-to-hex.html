@@ -21,7 +21,7 @@
     </form>
     <script>
         "use strict";
-        function addLeadingZero(value) {
+        function rgbToHex(value) {
             return value.length === 1 ? '0' + value : value;
         }
         function KleurHex(r, g, b) {
@@ -29,9 +29,9 @@
             this.g = g;
             this.b = b;
             this.hexString = function () {
-                const hexR = addLeadingZero(this.r.toString(16).toUpperCase());
-                const hexG = addLeadingZero(this.g.toString(16).toUpperCase());
-                const hexB = addLeadingZero(this.b.toString(16).toUpperCase());
+                const hexR = rgbToHex(this.r.toString(16).toUpperCase());
+                const hexG = rgbToHex(this.g.toString(16).toUpperCase());
+                const hexB = rgbToHex(this.b.toString(16).toUpperCase());
                 return `#${hexR}${hexG}${hexB}`;
             };
         }

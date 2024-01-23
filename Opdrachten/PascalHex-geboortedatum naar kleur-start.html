@@ -28,26 +28,26 @@
 		<input type="button" id="myBtn" value="Toon de kleur van je geboorte">
 			<script>
 				"use strict";
-				let geboortekleur = {
+				const geboortekleur = {
 					dag: "",
 					maand: "",
 					jaartal: "",
 					toonKleur: function() {
-						let kleurcode = "#" + this.dag + this.maand + this.jaartal;
-						document.getElementById("hex").innerText = "Kleur: " + kleurcode;
-						document.body.style.backgroundColor = kleurcode;
+						const kleurCode = "#" + this.dag + this.maand + this.jaartal;
+						document.getElementById("hex").innerText = "Kleur: " + kleurCode;
+						document.body.style.backgroundColor = kleurCode;
 					}
 				};
-				function kleurfunctie() {
-					geboortekleur.dag = geboortekleuroef(document.getElementById("dag").value);
-					geboortekleur.maand = geboortekleuroef(document.getElementById("maand").value);
-					geboortekleur.jaartal = geboortekleuroef(document.getElementById("jaartal").value);
+				function kleurFunctie() {
+					geboortekleur.dag = geboorteKleurOef(document.getElementById("dag").value);
+					geboortekleur.maand = geboorteKleurOef(document.getElementById("maand").value);
+					geboortekleur.jaartal = geboorteKleurOef(document.getElementById("jaartal").value);
 					geboortekleur.toonKleur();
 				}
-				function geboortekleuroef(value) {
+				function geboorteKleurOef(value) {
 					return value.length === 1 ? "0" + value : value;
 				}
-				document.getElementById("myBtn").addEventListener("click", kleurfunctie);
+				document.getElementById("myBtn").addEventListener("click", kleurFunctie);
 			</script>
 </body>
 </html>
