@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        "use strict";
+        function voerTaakUit(taak, callback) {
+    alert("Start met " + taak + ".");
+    alert("Ik heb gedaan met " + taak + ".");
+    setTimeout(callback(pauzeNemen), 3000);
+    }
+    function tevredenZijn(callback) {
+        alert("Ik ben tevreden over mijn werk!");
+        callback()
+    }
+    function pauzeNemen() {
+        alert("Tijd voor pauze nu!")
+    }
+    voerTaakUit("JavaScript herhalen", tevredenZijn);
+    </script>
+</body>
+</html>
