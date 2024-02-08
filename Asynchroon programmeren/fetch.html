@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div id="user-container"></div>
+
+    <script>
+        "use strict";
+        fetch('users.json')
+        .then(response => response.json())
+        .then(data => {
+            console.log(data);
+            displayUsers(data);
+        })
+        .catch(error => {
+            console.log("Something went wrong!", error);
+        });
+
+        function displayUsers(users) {
+            let userContainer = document.getElementById('user-container');
+            let userArray = users.people;
+            let length = userArray.length;
+            for (let i = 0; i < length; i++) {
+                let user = userArray[i];
+                let userElement = document.createElement('div');
+                userElement.innerHTML = `
+                    <h2>Persoon ${i + 1}</h2>
+                    <p>Voornaam: ${user.firstname}</p>
+                    <p>Achternaam: ${user.lastname}</p>
+                    <p>Email: ${user.email}</p>
+                `;
+                userContainer.appendChild(userElement);
+            }
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        "use strict";
+            let mijnPromise = new Promise(function (resolve, reject) {
+            // code, pending
+            })
+            .then(function () {
+                //code als het gelukt is, fullfilled
+            })
+            .catch(function () {
+                //code als het mislukt is, rejected
+            }).finally(function(){
+                //code als de actie afgelopen is, settled
+            });
+            let promise = new Promise(function (resolve, reject) {
+            console.log("Pending");
+            let naam1 = prompt("Geef de naam");
+            if (naam1 === "jan") {
+            resolve();//then wordt uitgevoerd
+            } else {
+            reject();//catch wordt uitgevoerd
+            }
+            })
+            .then(function () {
+                console.log('Succes!');
+            })
+            .catch(function () {
+                console.log('Mislukt!');
+            })
+            .finally(function () {
+                console.log('afgelopen');
+            });
+    </script>
+</body>
+</html>
