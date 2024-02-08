@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body{
+            background-color: #ccffff;
+            font-size: 18px;
+        }
+        div#header{
+            border: 1px solid black;
+            text-align: center;
+        }
+        li{
+            list-style-type: none;
+        }
+
+    </style>
+</head>
+<body>
+    <div id="header">
+        <h1>Welkom op mijn site</h1>
+        <h2>Ondertitel</h2>
+        <div id="menu">
+            <ul>
+                <li>menu1</li>
+                <li>menu2</li>
+                <li>menu3</li>
+            </ul>
+        </div>
+    </div>
+    <div>
+        <p>Children erven eigenschappen van parents</p>
+    </div>
+    <script>
+        "use strict";
+        let mijn_datum = new Date();
+        console.log(mijn_datum);
+        console.log(mijn_datum.getFullYear());
+        console.log(Object.getPrototypeOf(mijn_datum));
+        console.log(Object.getPrototypeOf(Object.getPrototypeOf(mijn_datum)));
+        let naam="Jan";
+        console.log(Object.getPrototypeOf(naam));
+        console.log(naam.indexOf("a"));
+        console.log(Object.getPrototypeOf(Object.getPrototypeOf(naam)));
+        function mijnFunctie() {
+            // hier staat de code
+        }
+        console.log(Object.getPrototypeOf(mijnFunctie));
+        //function(){}
+        console.log(Object.getPrototypeOf(Object.getPrototypeOf(mijnFunctie)));
+        let cijfers=[1,2,3];
+        console.log(Object.getPrototypeOf(cijfers));
+        console.log(Object.getPrototypeOf(Object.getPrototypeOf(cijfers)));
+        let car = {
+            type:"Fiat", 
+            model:"500", 
+            color:"white"
+        };
+        console.log(Object.getPrototypeOf(car));
+        console.log(Object.getPrototypeOf(Object.getPrototypeOf(car)));
+        function Hond(naam, ras, geluid) {
+        this.hondNaam = naam;
+        this.hondRas = ras;
+        this.hondGeluid = geluid;
+        Hond.prototype.blaf = function () {
+        console.log(this.hondGeluid);
+        }
+        }
+        let snoopy = new Hond("Snoopy", "Beagle", "woef woef");
+        snoopy.blaf();
+        let amber = new Hond("Amber", "Chihuahua", "wif wif");
+        amber.blaf();
+
+
+    </script>
+ </body>
+ 
+    
+</html>

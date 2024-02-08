@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <form id="myForm">
+        <label>HEX: <input type="text" id="hexWaardeIn"> </label>
+           <input type="button" id="myBtn" value="Bereken de RGB waarde." />
+           R: <input type="text" id="kleurROut" maxlength="3" size="3" />
+           G: <input type="text" id="kleurGOut" maxlength="3" size="3" />
+           B: <input type="text" id="kleurBOut" maxlength="3" size="3" />
+        </form>
+        
+    <script>
+        "use strict";
+        let allColors = [];
+        let kleuren;
+            let hexWaardeIn, kleurROut, kleurGOut, kleurBOut, docBody;
+            window.addEventListener("DOMContentLoaded", function () {
+            document.getElementById("myBtn").addEventListener("click", berekenRGB);
+            hexWaardeIn = document.getElementById("hexWaardeIn");
+            kleurROut = document.getElementById("kleurROut");
+            kleurGOut = document.getElementById("kleurGOut");
+            kleurBOut = document.getElementById("kleurBOut");
+            docBody = document.body;
+            kleuren = document.getElementById("kleuren");
+            document.getElementById("kleuren").addEventListener("click", gebruikVorigeKleur);
+
+
+            });
+            function KleurRGB(hex) {
+            this.hex = hex;
+            if (this.hex.charAt(0) == "#") {
+                    this.hex = this.hex.substring(1, 7);
+            }
+            this.Rwaarde = parseInt(this.hex.substring(0, 2), 16);
+            this.Gwaarde = parseInt(this.hex.substring(2, 4), 16);
+            this.Bwaarde = parseInt(this.hex.substring(4, 6), 16);
+            this.toon = function (toon1, toon2, toon3, bgc) {
+            toon1.value = this.Rwaarde;
+            toon2.value = this.Gwaarde;
+            toon3.value = this.Bwaarde;
+            bgc.style.background = `#${this.hex}`;
+            }
+            }
+            function berekenRGB() {
+            let hexWaarde = hexWaardeIn.value;
+            let myColorRGB = new KleurRGB(hexWaarde);
+            myColorRGB.toon(kleurROut, kleurGOut, kleurBOut, docBody);
+            allColors.push(myColorRGB);
+            addColorToPage();
+            }
+            function addColorToPage() {
+            let li = document.createElement("li");
+            let tekst = document.createTextNode(allColors[allColors.length - 1].hex);
+            li.appendChild(tekst);
+            kleuren.appendChild(li);
+            }
+            function gebruikVorigeKleur(e) {
+                if (e.target.nodeName == "LI") {
+                        document.getElementById("hexWaardeIn").value = e.target.innerText;
+                        //We moeten weten op de hoeveelste li geklikt is. Dan kunnen we het overeenkomstige element in de array allColors gebruiken
+                    let index = Array.from(e.target.parentNode.children).indexOf(e.target);
+                /*Maak een nieuwe array van e.target.parentNode.children:
+                e.target: de huidige li
+                parentNode: daarvan de parent
+                children: daarvan al de children. Dus al de li's.
+                Zoek vervolgens in die array de index van e.target, dus 
+                de huidige li waar op geklikt is                     */
+                    allColors[index].toon(kleurROut, kleurGOut, kleurBOut, docBody)
+                    }
+                }
+    </script>
+    <ul id="kleuren"></ul>
+
+</body>
+</html>

@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        "use strict";
+        function Car(type, model, color) {
+        this.carType=type;
+        this.carModel=model;
+        this.carColor=color;
+        };
+        console.log(Car);
+        let myCar=new Car("Fiat", "500", "White");
+        console.log(myCar);
+        let myVolvo=new Car("Volvo", "v90", "black");
+        console.log(myVolvo);
+        myVolvo.carModel="V80";
+        console.log(myVolvo.carModel);
+        console.log(`myCar instanceof Car:  ${myCar instanceof Car}`);
+
+
+
+    </script>
+</body>
+</html>

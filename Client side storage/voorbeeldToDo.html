@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .toDoItem{
+            cursor:pointer;
+            }
+            .toDoItem:hover{
+            background-color:#ccc;
+            }
+    </style>
+</head>
+<body>
+    <section> 
+        <form id="form" action="#" method="POST">
+            <input id="omschrijving" size="50" name="omschrijving" type="text" />
+            <input id="btnVoegToe" type="submit" value="Voeg toe" />
+            <button id="clear">Verwijder alles</button>
+        </form>
+            <div id="alert"></div>
+                <ul id="todos"></ul>
+    </section>
+        
+    <script>
+        "use strict";
+        let ulTodos = document.getElementById("todos");
+        let omschrijving = document.getElementById('omschrijving');
+        document.getElementById('btnVoegToe').addEventListener('click', function(e){
+        e.preventDefault();//formulier niet verzenden
+        let omschrijvingValue = (omschrijving.value).trim();
+        //trim: verwijder spaties vooraan en achteraan
+        
+        if(omschrijvingValue == '' || omschrijvingValue == undefined) {
+        document.getElementById('alert').innerHTML = "<strong>Waarschuwing!</strong> Je hebt niets ingevuld!";
+        setTimeout(function(){
+            document.getElementById('alert').style.display="none";
+        },1000);
+        //stoppen met het verdere script van de click function
+        return;
+        }
+
+        if(omschrijvingValue == '' || omschrijvingValue == undefined) {
+        document.getElementById('alert').innerHTML = "<strong>Waarschuwing!</strong> Je hebt niets ingevuld!";
+        document.getElementById('alert').style.display="block";
+        setTimeout(function(){
+            document.getElementById('alert').style.display="none";
+        },1000);
+        //stoppen met het verdere script van de click function
+        return;
+        }
+        let nieuweLi = document.createElement("li");
+        let textnode = document.createTextNode(omschrijvingValue); 
+        nieuweLi.className="toDoItem";
+        nieuweLi.appendChild(textnode);
+        ulTodos.appendChild(nieuweLi);
+        omschrijving.value="";
+        console.log(ulTodos.innerHTML);
+        localStorage.setItem('todosLocalStorage', ulTodos.innerHTML);
+        console.log("ls: " + localStorage.todosLocalStorage);
+        });//einde click handler
+        if(localStorage.todosLocalStorage){
+        ulTodos.innerHTML = localStorage.todosLocalStorage;
+        }
+        document.getElementById('clear').addEventListener('click', function (e) {
+        localStorage.removeItem("todosLocalStorage");
+        ulTodos.innerHTML = "";
+        e.preventDefault();
+        });
+        ulTodos.addEventListener('click', function (e) {
+        if (e.target.className === "toDoItem") {
+                ulTodos.removeChild(e.target);
+            localStorage.setItem('todosLocalStorage', ulTodos.innerHTML);
+        }
+        });
+        function bewaarLocalStorage() {
+        localStorage.setItem('todosLocalStorage', ulTodos.innerHTML);
+        }
+        let datum = new Date();
+        let jaar = datum.getFullYear();
+        let maand = datum.getMonth() + 1;//0 based
+        let dag = datum.getDate();
+        if (maand < 10) { maand = `0${maand}`; }
+        if (dag < 10) { dag = `0${dag}`; }
+        let nieuweLi = document.createElement("li");
+        nieuweLi.className="toDoItem";
+        let textnode = document.createTextNode(`${jaar}/${maand}/${dag} - ${omschrijvingValue}`);
+        nieuweLi.appendChild(textnode);
+        ulTodos.appendChild(nieuweLi);
+    </script>
+</body>
+</html>
+

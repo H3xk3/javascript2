@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ToDo List</title>
+    <style>
+        .toDoItem {
+            cursor: pointer;
+        }
+        .toDoItem:hover {
+            background-color: #ccc;
+        }
+    </style>
+</head>
+<body>
+    <section> 
+        <form id="form" action="#" method="POST">
+            <input id="omschrijving" size="50" name="omschrijving" type="text" placeholder="Voeg een taak toe..." />
+            <input id="btnVoegToe" type="submit" value="Voeg toe" />
+            <button id="clear">Verwijder alles</button>
+        </form>
+        <div id="alert"></div>
+        <ul id="todos"></ul>
+    </section>
+        
+    <script>
+        "use strict";
+        let ulTodos = document.getElementById("todos");
+        let omschrijving = document.getElementById('omschrijving');
+        let alertBox = document.getElementById('alert');
+
+        document.getElementById('form').addEventListener('submit', function(e){
+            e.preventDefault(); // Prevent form submission
+            let omschrijvingValue = omschrijving.value.trim();
+            
+            if (omschrijvingValue === '') {
+                showAlert("Waarschuwing! Je hebt niets ingevuld!");
+                return;
+            }
+
+            let nieuweLi = document.createElement("li");
+            nieuweLi.className = "toDoItem";
+            nieuweLi.textContent = `${getCurrentDate()} - ${omschrijvingValue}`; // Including current date
+            ulTodos.appendChild(nieuweLi);
+            omschrijving.value = "";
+            saveToLocalStorage();
+        });
+
+        document.getElementById('clear').addEventListener('click', function (e) {
+            localStorage.removeItem("todosLocalStorage");
+            ulTodos.innerHTML = "";
+        });
+
+        ulTodos.addEventListener('click', function (e) {
+            if (e.target.classList.contains("toDoItem")) {
+                ulTodos.removeChild(e.target);
+                saveToLocalStorage();
+            }
+        });
+
+        window.addEventListener('load', function () {
+            let storedTodos = localStorage.getItem('todosLocalStorage');
+            if (storedTodos) {
+                ulTodos.innerHTML = storedTodos;
+            }
+        });
+
+        function showAlert(message) {
+            alertBox.innerHTML = "<strong>Waarschuwing!</strong> " + message;
+            alertBox.style.display = "block";
+            setTimeout(function(){
+                alertBox.style.display = "none";
+            }, 1000);
+        }
+
+        function getCurrentDate() {
+            let datum = new Date();
+            let jaar = datum.getFullYear();
+            let maand = datum.getMonth() + 1; // Months are 0-based
+            let dag = datum.getDate();
+            if (maand < 10) { maand = `0${maand}`; }
+            if (dag < 10) { dag = `0${dag}`; }
+            return `${jaar}/${maand}/${dag}`;
+        }
+
+        function saveToLocalStorage() {
+            localStorage.setItem('todosLocalStorage', ulTodos.innerHTML);
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Promises</title>
+    </head>
+<body>
+<p>Selecteer een knop om de video in te lezen</p>
+<p id="error"></p>
+    <div id="buttonsDiv">
+    <button>Video 1</button>
+    <button>Video 2</button>
+    </div>
+<h2 id="titel"></h2>
+<iframe id="youtube" width="560" height="315" src="" frameborder="0"
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+        allowfullscreen></iframe>
+<div id="lyrics"></div>
+    <script>
+        "use strict";
+        const pError = document.getElementById("error");
+        const youtube = document.getElementById("youtube");
+        const lyrics = document.getElementById("lyrics");
+        const h2Titel = document.getElementById("titel");
+        const buttonsDiv = document.getElementById("buttonsDiv");
+        let jsonData;
+        let selectedButton;
+        fetch('promises.json')
+            .then(response => response.json())
+            .then(data => {
+            jsonData = data;
+            })
+            .catch(error => {
+            pError.innerHTML = `Sorry, de video's kunnen niet ingelezen worden. Probeer later opnieuw. ${error.message}`;
+            });
+        buttonsDiv.addEventListener('click', (e) => {
+            selectedButton = Array.from(e.target.parentNode.children).indexOf(e.target);
+            setVideoAndLyrics();
+        });
+        function setVideoAndLyrics() {
+            if (jsonData) {
+            const selectedData = jsonData.list[selectedButton];
+            h2Titel.innerHTML = selectedData.titel;
+            youtube.src = `https://www.youtube.com/embed/${selectedData.youtubeUrl}`;
+            lyrics.innerHTML = selectedData.lyrics;
+            } else {
+            pError.innerHTML = "Sorry, de video's zijn nog niet ingelezen worden. Probeer later opnieuw.";
+            }
+        }
+    </script>
+</body>
+</html>

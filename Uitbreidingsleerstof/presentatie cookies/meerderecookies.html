@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cookies Voorbeeld</title>
+</head>
+<body>
+    <p><button id="btnUseCookie">Gebruik cookie</button></p>
+    <script>
+        "use strict";
+        
+        // Functie om cookie te gebruiken
+        function useCookie(cookieNaam) {
+            // De naam van de cookie wordt gevolgd door een = teken
+            let cNaam = `${cookieNaam}=`;
+            
+            // Cookies worden gescheiden door een ;
+            // Dus daarop kan worden opgedeeld in een array
+            let cArray = document.cookie.split(';');
+            console.log(cArray);
+            // ["kleur=groen", "naam=javascript"]
+            
+            // Overloop de array
+            for (let i = 0; i < cArray.length; i++) {
+                let cookie = cArray[i];
+                console.log(`cookie ${i} : ${cookie}`);
+                // Cookie 0: kleur=groen
+                // Cookie 1: naam=javascript
+
+                // Leidende spaties weghalen
+                while (cookie.charAt(0) == ' ') {
+                    // Lees while als: voer uit zolang dat
+                    cookie = cookie.substring(1);
+                }
+                
+                if (cookie.indexOf(cNaam) == 0) {
+                    // Als de huidige cookie in de array de te zoeken naam bevat
+                    // Dan begint de inhoud van de cookie waar cNaam
+                    // Eindigt, dus dat is de lengte van cNaam
+                    // Tot de volledige lengte van de cookie
+                    alert(`Hallo ${cookie.substring(cNaam.length, cookie.length)} ,welkom terug!`);
+                    // Stop script om andere cookies niet meer te behandelen
+                    return;
+                }
+            }
+            alert('Cookie niet gevonden.');
+        }
+
+        // Voeg een event listener toe aan de knop
+        document.getElementById('btnUseCookie').addEventListener('click', function () { useCookie("naam") });
+    </script>
+</body>
+</html>

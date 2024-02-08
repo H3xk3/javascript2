@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        "use strict";
+        function Rechthoek(lengte, breedte, kleur) {
+        this.lengte = lengte;
+        this.breedte = breedte;
+        this.kleur = kleur;
+        }
+        Rechthoek.prototype.getOppervlakte = function () {
+        return this.lengte * this.breedte;
+        };
+        function Vierkant(size) {
+        this.lengte = size;
+        this.breedte = size;
+        }
+        Vierkant.prototype = new Rechthoek();
+        let rechth = new Rechthoek(5, 10);
+        let vierk = new Vierkant(6);
+        console.log(rechth.getOppervlakte());//50
+        console.log(vierk.getOppervlakte());//36
+        console.log(`vierk.lengte : ${vierk.lengte}`);
+        console.log(`vierk.breedte : ${vierk.breedte}`);
+        vierk.kleur = "groen";
+        console.log(`vierk kleur : ${vierk.kleur}`);
+            </script>
+</body>
+</html>

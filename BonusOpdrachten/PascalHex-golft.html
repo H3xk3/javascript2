@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PascalHex-golft</title>
+</head>
+
+<body>
+
+    <div id="resultatenContainer"></div>
+
+    <script>
+        "use strict";
+        let alleResultaten = [];
+        function Resultaat(golfbaan, datum, hole, par, strokes) {
+            this.golfbaan = golfbaan;
+            this.datum = datum;
+            this.hole = hole;
+            this.par = par;
+            this.strokes = strokes;
+            this.score = "";
+            this.Score = function () {
+                if (this.strokes === 1) {
+                    this.score = "Hole-in-one!";
+                } else if (this.strokes <= this.par - 2) {
+                    this.score = "Eagle";
+                } else if (this.strokes <= this.par - 1) {
+                    this.score = "Birdie";
+                } else if (this.strokes === this.par) {
+                    this.score = "Par";
+                } else if (this.strokes === this.par + 1) {
+                    this.score = "Bogey";
+                } else if (this.strokes === this.par + 2) {
+                    this.score = "Double Bogey";
+                } else {
+                    this.score = "No Score";
+                }
+            };
+            this.save = function () {
+                alleResultaten.push(this);
+            };
+            this.Score();
+            this.save();
+        }
+        new Resultaat("Groene Weide", "01/01/2020", 1, 10, 13);
+        new Resultaat("Groene Weide", "01/01/2020", 2, 12, 12);
+        new Resultaat("Konings Hooi", "08/01/2020", 3, 12, 1);
+        function show() {
+            const resultatenContainer = document.getElementById("resultatenContainer");
+            for (let i = 0; i < alleResultaten.length; i++) {
+                const resultaat = alleResultaten[i];
+                const resultaatDiv = document.createElement("div");
+                resultaatDiv.innerHTML = `
+                    <p>Golfbaan: ${resultaat.golfbaan}</p>
+                    <p>Datum: ${resultaat.datum}</p>
+                    <p>Hole: ${resultaat.hole}</p>
+                    <p>Par: ${resultaat.par}</p>
+                    <p>Strokes: ${resultaat.strokes}</p>
+                    <p>Score: ${resultaat.score}</p>
+                    <hr>
+                `;
+                resultatenContainer.appendChild(resultaatDiv);
+            }
+        }
+        show();
+    </script>
+</body>
+</html>

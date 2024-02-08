@@ -1,0 +1,57 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Image gallery</title>
+    <link rel="stylesheet" type="text/css" href="gallery.css">
+</head>
+<body>
+    <p><img id="largeImg" src="550x400/ipad.jpg" alt="Large image"></p>
+    <div id="thumbs">
+        <a href="550x400/ipad.jpg" title="ipad"><img src="200x150/ipad.jpg"></a>
+    </div>
+    <button id="voegFotoBij">Voeg Foto Toe</button>
+    <script>
+        'use strict';
+
+        const bestandsnamen = ["ipad.jpg", "dj.jpg", "ubuntu.jpg", "electronica.jpg"];
+        let teller = 1;
+
+        function addPhoto() {
+            if (teller < bestandsnamen.length) {
+                const nieuweA = document.createElement('a');
+                const nieuweFoto = document.createElement('img');
+                const bestand = bestandsnamen[teller];
+                const bestandsnaam2 = bestand.slice(0, -4);
+                nieuweA.href = "550x400/" + bestand;
+                nieuweA.title = bestandsnaam2;
+                nieuweFoto.src = "200x150/" + bestand;
+                nieuweFoto.alt = bestandsnaam2;
+                nieuweA.appendChild(nieuweFoto);
+                document.getElementById('thumbs').appendChild(nieuweA);
+                console.log("Nieuwe Foto Toegevoegd Src:", nieuweFoto.src);
+                teller++;
+            } else {
+                console.log("Geen Foto's meer om toe te voegen.");
+            }
+        }
+
+        document.addEventListener("DOMContentLoaded", function() {
+            const largeImg = document.getElementById('largeImg');
+            const kleineFoto = document.getElementById('thumbs');
+            const voegFotoBij = document.getElementById('voegFotoBij');
+
+            voegFotoBij.addEventListener('click', addPhoto);
+            kleineFoto.addEventListener('click', function(event) {
+                if (event.target.nodeName === 'IMG') {
+                    largeImg.src = event.target.parentNode.href;
+                    event.preventDefault(); 
+                    console.log("Foto Geklikt Naam van Bestand:", event.target.parentNode.title);
+                    console.log("Nieuwe Foto Toegevoegd Src:", event.target.src);
+                }
+            });
+        });
+    </script>
+</body>
+</html>

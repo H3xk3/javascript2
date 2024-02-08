@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        "use strict";
+        function Voertuig() {
+        this.beweegt = false; // het staat stil
+        this.heeft_wielen = false;
+        this.merk = "Audi"; // kan nog worden ingevuld
+        }
+        Voertuig.prototype.beweegtAlert = function () {
+        if (this.beweegt) {
+                alert('Zijn we er bijna?');
+        }
+        else {
+                alert('Waarom bewegen we niet?');
+                }		}
+                function Rijtuig() {
+        this.aantal_wielen = 0;
+        }
+        function Vliegtuig() {
+        this.aantal_wielen = 0;
+        this.straalmotor = false;
+        }
+        function vaartuig() {
+        this.ruimVermogen = 0;
+        this.aantalSchroeven = 0;
+        }
+        Rijtuig.prototype = new Voertuig();
+        let auto = new Rijtuig();
+        Vliegtuig.prototype = new Voertuig();
+        let cessna = new Vliegtuig();
+        cessna.beweegt = true;
+        cessna.heeft_wielen = true;
+        cessna.aantal_wielen = 2;
+        cessna.merk = "Cessna 750";
+        console.log(cessna);
+        cessna.beweegtAlert();
+        Voertuig.prototype.beweegtAlert = function () {
+        if (this.beweegt) {
+                console.log('Hey ' + this.merk + ', zijn we er bijna?');
+        }
+        else {
+            console.log('Hey ' + this.merk + ', waarom bewegen we niet?');
+        }
+        }
+
+
+    </script>
+</body>
+</html>

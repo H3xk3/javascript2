@@ -1,0 +1,116 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+    <title>Image gallery</title>
+    <link rel="stylesheet" type="text/css" href="gallery.css">
+</head>
+
+<body>
+    <p><img id="largeImg" src="550x400/ipad.jpg" alt="Large image"></p>
+    <div id="thumbs">
+    </div>
+    <button id="add">Voeg afbeelding toe</button>
+    <script>
+        "use strict";
+        class Model {
+            constructor() {
+                this.init();
+            }
+
+            init() {
+                this.bestandsnamen = ["ipad.jpg", "dj.jpg", "ubuntu.jpg", "electronica.jpg"];
+                this.teller = 0;
+                this.lengte = this.bestandsnamen.length;
+            }
+
+            getBestandsnaam(index) {
+                return this.bestandsnamen[index];
+            }
+
+            getTeller() {
+                return this.teller;
+            }
+
+            getLengte() {
+                return this.lengte;
+            }
+
+            verhoogTeller() {
+                this.teller++;
+            }}
+
+        class View {
+            constructor() {
+                this.largeImg = document.getElementById('largeImg');
+                this.divThumbs = document.getElementById('thumbs');
+            }
+
+            init(controller) {
+                this.controller = controller;
+            }
+
+            toonNieuweThumb(bestandsnaam) {
+                let nieuweThumb = document.createElement("a");
+                let bestandsnaamZonderExtentie = bestandsnaam.substring(0, bestandsnaam.length - 4);
+                let newHref = `550x400/${bestandsnaam}`;
+                nieuweThumb.href = newHref;
+                nieuweThumb.title = bestandsnaamZonderExtentie;
+
+                let nieuweImg = document.createElement("img");
+                nieuweImg.src = `200x150/${bestandsnaam}`;
+                nieuweImg.alt = bestandsnaamZonderExtentie;
+                nieuweThumb.appendChild(nieuweImg);
+
+                this.divThumbs.appendChild(nieuweThumb);
+            }
+
+            toonGroteImage(e) {
+                if (e.target.nodeName === "IMG") {
+                    let anchor = e.target.parentNode;
+                    this.largeImg.src = anchor.href;
+                    this.largeImg.alt = anchor.title;
+                }
+                e.preventDefault();
+            }
+        }
+
+        class Controller {
+            constructor(model, view) {
+                this.model = model;
+                this.view = view;
+                this.init();
+            }
+
+            init() {
+                this.view.init(this);
+                this.addEventListeners();
+            }
+
+            addEventListeners() {
+                document.getElementById('add').addEventListener('click', () => this.add());
+                document.getElementById('thumbs').addEventListener('click', (e) => this.view.toonGroteImage(e));
+            }
+
+            add() {
+                if (this.model.getTeller() < this.model.getLengte()) {
+                    let bestandsnaam = this.model.getBestandsnaam(this.model.getTeller());
+                    this.view.toonNieuweThumb(bestandsnaam);
+                    this.model.verhoogTeller();
+                }
+            }
+
+            toonGroteImage(e) {
+                this.view.toonGroteImage(e);
+            }
+        }
+
+        window.addEventListener("DOMContentLoaded", function () {
+            let model = new Model();
+            let view = new View();
+            let controller = new Controller(model, view);
+        });
+    </script>
+</body>
+
+</html>

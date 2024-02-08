@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .error {
+        color: red;
+        }
+
+    </style>
+</head>
+<body>
+            <h1 id="instellingenLabel">Uw instellingen</h1>
+        <p>Kies je locatie:
+        <select id="land">
+                <option value="geen">kies je land</option>
+            <option value="België">België</option>
+            <option value="Nederland">Nederland</option>
+        </select>
+        </p>
+        <p>Kies je taal:
+        <select id="taal">
+                <option value="geen">kies je taal</option>
+            <option value="engels">engels</option>
+            <option value="frans">frans</option>
+            <option value="nederlands">nederlands</option>
+        </select>
+        </p>
+        <button id="bewaar">Bewaar</button>
+        <button id="clear">Clear</button>
+        <p id="instellingenParagraaf"></p>
+        <input type="text" id="ingave" name="">
+        <button id="btnCheck">check</button>
+    <script>
+        "use strict";
+        let locatieObject = {
+        land: "",
+        taal: ""
+        }
+        let instellingenParagraaf = document.getElementById("instellingenParagraaf");
+        let landSelect = document.getElementById('land');
+        let taalSelect = document.getElementById('taal');
+        if (localStorage.locatieLS) {
+        locatieObject = JSON.parse(localStorage.locatieLS);
+        schrijfInstellingenParagraaf();
+        }
+        function schrijfInstellingenParagraaf() {
+        instellingenParagraaf.innerHTML = `Uw huidige instelling is <br> land: ${locatieObject.land} <br> taal: ${locatieObject.taal}`;
+        }
+        document.getElementById('bewaar').addEventListener('click', function () {
+            let landIndex = landSelect.selectedIndex;
+            let taalIndex = taalSelect.selectedIndex;
+            let landValue = landSelect.value;
+            let taalValue = taalSelect.value;
+            if (landIndex == 0) { 
+            if (!document.getElementById('errorLand')) {
+                let landNieuweSpan = document.createElement("span");
+                landNieuweSpan.className = "error";
+                landNieuweSpan.id = "errorLand";
+                landSelect.parentNode.appendChild(landNieuweSpan);
+            }
+            document.getElementById('errorLand').innerText = "Gelieve een land te kiezen!"
+            }
+            else if (document.getElementById('errorLand')) {
+            errorLand.innerText = "";
+            }
+            if (taalIndex == 0) {
+            if (!document.getElementById('errorTaal')) {
+                let taalNieuweSpan = document.createElement("span");
+                taalNieuweSpan.className = "error";
+                taalNieuweSpan.id = "errorTaal";
+                taalSelect.parentNode.appendChild(taalNieuweSpan);
+            }
+            document.getElementById('errorTaal').innerText = "Gelieve een taal te kiezen!"
+            }
+            else if (document.getElementById('errorTaal')) {
+            errorTaal.innerText = "";
+            }
+            if (landIndex != 0 && taalIndex != 0) {
+            locatieObject.land = landValue;
+            locatieObject.taal = taalValue;
+            localStorage.locatieLS = JSON.stringify(locatieObject);
+            schrijfInstellingenParagraaf();
+            landSelect.selectedIndex = "0";
+            taalSelect.selectedIndex = "0";
+            }
+            document.getElementById('clear').addEventListener('click', function () {
+            localStorage.removeItem("locatieLS");
+            landSelect.selectedIndex = "0";
+            taalSelect.selectedIndex = "0";
+            locatieObject.land = "";
+            locatieObject.taal = "";
+            document.getElementById("instellingenParagraaf").innerText = "";
+            });
+            document.getElementById('btnCheck').addEventListener('click', function () {
+            if (document.getElementById('ingave').value.length == 0) {
+                    console.log("Er is niets ingevuld");
+                return;
+            }
+            else {
+                    console.log("Er is iets ingevuld");
+            }
+            console.log("Dit is de code die na de if wordt uitgevoerd");
+            });
+            console.log("Dit is een log buiten de click handler");
+                        })
+    </script>
+</body>
+</html>
+
+
+

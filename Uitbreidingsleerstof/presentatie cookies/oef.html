@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <p><button id="btnSetCookieKleur">Stel cookie kleur in</button></p>
+   <script>
+    "use strict";
+    document.getElementById('btnSetCookieKleur').addEventListener('click', setCookieKleur);
+
+    function setCookieKleur() {
+    let kleur = prompt("Welke kleur moet ik onthouden?");
+    document.cookie = `kleur=${kleur}`;
+    }
+
+   </script> 
+</body>
+</html>

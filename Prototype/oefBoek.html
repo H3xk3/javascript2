@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <input type="text" id="isbn" name="">
+    <input type="text" id="titel" name="">
+    <input type="text" id="jaar" name="">
+    <input type="text" id="publisher" name="">
+    <input type="text" id="status" name="">
+    <button id="btnOntleend">ontleend</button>
+    <button id="btnTerugBinnen">aanwezig</button>
+        <script>
+        "use strict";
+        let statusInput = document.getElementById('status');
+        function Boek(isbn, titel, jaar, publisher, status) {
+        this.isbn = isbn;
+        this.titel = titel;
+        this.jaar = jaar;
+        this.publisher = publisher;
+        this.status = status;
+        };
+        Boek.prototype.setStatus = function (status, veld) {
+        console.log(this.status);
+        this.status = status;
+        console.log(this.status);
+        veld.value = this.status;
+        }
+        let mijnEersteJavaScriptBoek = new Boek("01234567", "JavaScript, the right way", 2012, "jstherightway.com", "aanwezig");
+        //invullen in inputs
+        document.getElementById('isbn').value = mijnEersteJavaScriptBoek.isbn;
+        document.getElementById('titel').value = mijnEersteJavaScriptBoek.titel;
+        document.getElementById('jaar').value = mijnEersteJavaScriptBoek.jaar;
+        document.getElementById('publisher').value = mijnEersteJavaScriptBoek.publisher;
+        document.getElementById('status').value = mijnEersteJavaScriptBoek.status;
+        document.getElementById('btnOntleend').addEventListener('click', function () {
+        mijnEersteJavaScriptBoek.setStatus("ontleend", document.getElementById('status'));
+        });
+            document.getElementById('btnTerugBinnen').addEventListener('click', function () {
+        mijnEersteJavaScriptBoek.setStatus("aanwezig", document.getElementById('status'));
+        });
+
+    </script>
+</body>
+</html>

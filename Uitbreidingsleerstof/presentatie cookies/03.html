@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <p><button id="btnSetCookieExpire">Stel cookie expire in</button></p>
+    <script>
+        "use strict";
+        document.getElementById('btnSetCookieExpire').addEventListener('click', setCookieExpire);
+        function setCookieExpire() {
+        let naam = prompt("Geef je naam aub.");
+        let now = new Date();//huidige datum opvragen
+        console.log(`${now.getDate()} ${now.getMonth()} ${now.getFullYear()}`);
+        //getDate() Returns the day of the month (from 1-31)
+        //getMonth() Returns the month (from 0-11)
+        //getFullYear() Returns the year
+        let days = 365;
+        console.log(typeof (now));//object, kan je dus geen getal bij optellen
+        //+now zet om naar cijfer
+        //setTime: tijd instellen
+        now.setTime(+now + (days * 86400000));
+        //1 dag in milliseconden: 24 * 60 * 60 * 1000
+        console.log(`${now.getDate()} ${now.getMonth()} ${now.getFullYear()}`);
+        document.cookie = `naam=${naam}; expires=${now.toUTCString()}`;
+        }
+    </script>
+</body>
+</html>

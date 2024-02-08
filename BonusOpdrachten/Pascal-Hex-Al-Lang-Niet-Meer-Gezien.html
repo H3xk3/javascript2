@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="nl">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>PascalHex al lang niet meer gezien</title>
+    </head>
+    <body>
+            <div id="weergave"></div>
+            <button id="btnVerwijderMij">Verwijder mij</button>
+        <script>
+            "use strict";
+                document.addEventListener('DOMContentLoaded', function () {
+                function getCookie(naam) {
+                    const waarde = "; " + document.cookie;
+                    const deel = waarde.split("; " + naam + "=");
+                    if (deel.length === 2) return deel.pop().split(";").shift();
+                }
+                const laatsteCookie = getCookie('laatstOpDeSite');
+                if (laatsteCookie) {
+                    const vorigeDatum = new Date(laatsteCookie);
+                    const huidigeDatum = new Date();
+                    const verschil = huidigeDatum - vorigeDatum;
+                    let dagen = Math.floor(verschil / (24 * 60 * 60 * 1000));
+                    let rest = verschil % (24 * 60 * 60 * 1000);
+                    let uur = Math.floor(rest / (60 * 60 * 1000));
+                    rest %= 60 * 60 * 1000;
+                    let minuten = Math.floor(rest / (60 * 1000));
+                    rest %= 60 * 1000;
+                    let seconden = Math.floor(rest / 1000);
+                    document.getElementById('weergave').innerText = `Sinds de vorige keer zijn er ${dagen} dag(en), ${uur} uur, ${minuten} minuten en ${seconden} seconden verstreken.`;
+                    const nieuweDatum = new Date().toUTCString();
+                    document.cookie = 'laatstOpDeSite=' + nieuweDatum;
+                } else {
+                    document.getElementById('weergave').innerText = 'Dit is de eerste keer dat je op deze site komt.';
+                    const huidigeDatum = new Date().toUTCString();
+                    document.cookie = 'laatstOpDeSite=' + huidigeDatum;
+                }
+                document.getElementById('btnVerwijderMij').addEventListener('click', function () {
+                    document.cookie = 'laatstOpDeSite=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;';
+                    location.reload();
+                });
+            });
+        </script>
+    </body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

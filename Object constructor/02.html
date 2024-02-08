@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        "use strict";
+        function Hond(naam, ras, geluid) {
+        this.naam = naam;
+        this.ras = ras;
+        this.geluid=geluid;
+        this.blaf = function (){
+   		    console.log(this.geluid);
+        }
+        }
+        let snoopy = new Hond("Snoopy", "Beagle","woef woef");
+        console.log(snoopy)
+        snoopy.blaf();
+        let amber = new Hond("Amber", "Chihuahua", "wif wif");
+        amber.blaf();
+
+    </script>
+</body>
+</html>

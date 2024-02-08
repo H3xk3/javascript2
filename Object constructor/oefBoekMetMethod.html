@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        "use strict";
+    function Boek(titel, jaar, publisher) {
+    this.titel=titel;
+    this.jaar=jaar;
+    this.publisher=publisher;
+    this.writeBoek=function (){
+            document.write(`<p>Titel :  ${this.titel}</p>`);
+        document.write(`<p>Jaar : ${this.jaar}</p>`);
+        document.write(`<p>Publisher : ${this.publisher}</p>`);
+        }
+    };
+    let mijnEersteJavaScriptBoek= new Boek("JavaScript, the right way",2012,"jstherightway.com");
+
+    console.log(mijnEersteJavaScriptBoek);
+    mijnEersteJavaScriptBoek.writeBoek();
+
+    </script>
+</body>
+</html>

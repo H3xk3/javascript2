@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div id="weergave"></div>
+    <script>
+        "use strict";
+        window.addEventListener("DOMContentLoaded", controleerCookie("naam"));
+        //controleerCookie wordt dus automatisch uitgevoerd als de webpagina ingelezen is
+        function controleerCookie(cookieNaam) {
+        let naam = getCookie(cookieNaam);
+        if (naam != null) {
+                alert(`Welkom terug ${naam}`);
+        }
+        else {
+            alert("Onbekende persoon");
+                document.cookie = "naam=JavaScript";
+        //we stellen de cookie in
+        }
+        }
+        function getCookie(cookieNaam) {
+        let cNaam = `${cookieNaam}=`;
+        let cArray = document.cookie.split(';');
+        for (let i = 0; i < cArray.length; i++) {
+                let cookie = cArray[i];
+            console.log(`cookie ${i} : ${cookie}`);
+            while (cookie.charAt(0) == ' ') {
+                    cookie = cookie.substring(1);
+            }
+            if (cookie.indexOf(cNaam) == 0) {
+                return cookie.substring(cNaam.length, cookie.length);
+            }
+        }
+        return null;    }
+    </script>
+</body>
+</html>

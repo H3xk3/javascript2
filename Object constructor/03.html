@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        "use strict";
+        let naam1="Jan";
+        let naam2=naam1;
+        console.log(`let naam1= ${naam1}, en naam2= ${naam2}`);
+        naam1="Piet";
+        console.log(`naam1= ${naam1}, en naam2= ${naam2}`);
+        let persoon1 = {
+        naam:"Jan"
+        };
+        let persoon2 = persoon1;
+        console.log(`object persoon1.naam= ${persoon1.naam}, en persoon2.naam= ${persoon2.naam}`);
+        persoon1.naam="Piet";
+        console.log(`persoon1.naam= ${persoon1.naam}, en persoon2.naam= ${persoon2.naam}`);
+    </script>
+</body>
+</html>

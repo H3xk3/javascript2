@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        "use strict";
+        function Fruit (naam, kleur, zoetheid, origine) {
+        this.naam = naam;
+        this.kleur = kleur;
+        this.zoetheid = zoetheid;
+        this.origine = origine;
+        this.toonGegevens = function () {
+        document.write(`De ${this.naam} is ${this.kleur} van kleur, is ${this.zoetheid} zoet en komt uit ${this.origine}.`);
+        }
+        }
+        let banaan = new Fruit("banaan", "geel", "gemiddeld", "Afrika");
+        banaan.toonGegevens();
+    </script>
+</body>
+</html>

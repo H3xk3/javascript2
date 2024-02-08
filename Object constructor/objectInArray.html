@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        "use strict";
+        let alleHonden = [];
+        function Hond(naam, ras, geluid) {
+        this.naam = naam;
+        this.ras = ras;
+        this.geluid = geluid;
+        this.blaf = function () {
+                console.log(this.geluid);
+        }
+        }
+        let snoopy = new Hond("Snoopy", "Beagle", "woef-woef");
+        alleHonden.push(snoopy);
+
+        let amber = new Hond("Amber", "Chihuahua", "wif wif");
+        alleHonden.push(amber);
+        alleHonden[0].blaf();
+        alleHonden[1].blaf();
+    </script>
+</body>
+</html>

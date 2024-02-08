@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        "use strict";
+        function Mens(naam, leeftijd) {
+        this.naam = naam;
+        this.leeftijd = leeftijd;
+        }
+
+        Mens.prototype.toonGegevens = function () {
+        console.log(`${this.naam} ${this.leeftijd}`)
+        }
+
+        let jan = new Mens("Jan", "32");
+        jan.toonGegevens();
+
+    </script>
+</body>
+</html>

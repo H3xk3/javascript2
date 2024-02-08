@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cookies Voorbeeld</title>
+</head>
+<body>
+    <div id="weergave"></div>
+    <p><button id="btnUseCookie">Gebruik cookie</button></p>
+    
+    <script>
+        "use strict";
+
+        // Functie om cookie te gebruiken
+        function useCookie(cookieNaam) {
+            // De naam van de cookie wordt gevolgd door een = teken
+            let cNaam = `${cookieNaam}=`;
+
+            // Cookies worden gescheiden door een ;
+            // Dus daarop kan worden opgedeeld in een array
+            let cArray = document.cookie.split(';');
+            console.log(cArray);
+            // ["naam=JavaScript"]
+            
+            // Overloop de array
+            for (let i = 0; i < cArray.length; i++) {
+                let cookie = cArray[i];
+                console.log(`cookie ${i} : ${cookie}`);
+                // Cookie 0: naam=JavaScript
+
+                // Leidende spaties weghalen
+                while (cookie.charAt(0) == ' ') {
+                    // Lees while als: voer uit zolang dat
+                    cookie = cookie.substring(1);
+                }
+
+                if (cookie.indexOf(cNaam) == 0) {
+                    // Als de huidige cookie in de array de te zoeken naam bevat
+                    // Dan begint de inhoud van de cookie waar cNaam
+                    // Eindigt, dus dat is de lengte van cNaam
+                    // Tot de volledige lengte van de cookie
+                    alert(`Hallo ${cookie.substring(cNaam.length, cookie.length)} ,welkom terug!`);
+                    // Stop script om andere cookies niet meer te behandelen
+                    return;
+                }
+            }
+            alert('Cookie niet gevonden.');
+        }
+
+        // Voeg een event listener toe aan de knop
+        document.getElementById('btnUseCookie').addEventListener('click', function () { useCookie("naam") });
+
+        // controleerCookie wordt dus automatisch uitgevoerd als de webpagina ingelezen is
+        controleerCookie("naam");
+
+        function controleerCookie(cookieNaam) {
+            let naam = getCookie(cookieNaam);
+            if (naam != null) {
+                document.getElementById('weergave').innerText = `Welkom terug ${naam}`;
+            } else {
+                document.getElementById('weergave').innerText = "Onbekende persoon";
+                document.cookie = "naam=JavaScript";
+                // we stellen de cookie in
+            }
+        }
+
+        function getCookie(cookieNaam) {
+            let cNaam = `${cookieNaam}=`;
+            let cArray = document.cookie.split(';');
+            for (let i = 0; i < cArray.length; i++) {
+                let cookie = cArray[i];
+                console.log(`cookie ${i} : ${cookie}`);
+                while (cookie.charAt(0) == ' ') {
+                    cookie = cookie.substring(1);
+                }
+                if (cookie.indexOf(cNaam) == 0) {
+                    return cookie.substring(cNaam.length, cookie.length);
+                }
+            }
+            return null;
+        }
+    </script>
+</body>
+</html>

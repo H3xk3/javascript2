@@ -1,0 +1,3 @@
+
+Vanaf nu dus altijd via het prototype van de constructor functie een method toevoegen
+indien er dus meerdere instanties worden aangemaakt

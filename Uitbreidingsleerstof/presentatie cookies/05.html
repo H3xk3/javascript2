@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <p><button id="btnSetCookieAchternaamVoornaam">Stel cookie achternaam en voornaam in</button></p>
+    <script>
+        "use strict";
+        document.getElementById('btnSetCookieAchternaamVoornaam').addEventListener('click', setCookieAchternaamVoornaam);
+        function setCookieAchternaamVoornaam() {
+        let achternaam = prompt("Geef je achternaam aub.");
+        let voornaam = prompt("Geef je voornaam aub.");
+        document.cookie = "achternaam=" + achternaam;
+        document.cookie = "voornaam=" + voornaam;
+        console.log(document.cookie)
+        }
+    </script>
+</body>
+</html>
+
+

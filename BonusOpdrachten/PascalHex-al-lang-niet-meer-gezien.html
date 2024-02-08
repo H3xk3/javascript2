@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PascalHex al lang niet meer gezien</title>
+</head>
+<body>
+    <div id="weergave"></div>
+    <button id="btnVerwijderMij">Verwijder mij</button>
+        <script>
+            "use strict";
+        document.addEventListener('DOMContentLoaded', function () {
+            function getCookie(name) {
+                const value = "; " + document.cookie;
+                const parts = value.split("; " + name + "=");
+                if (parts.length === 2) return parts.pop().split(";").shift();
+            }
+            const laatstOpDeSiteCookie = getCookie('laatstOpDeSite');
+            if (laatstOpDeSiteCookie) {
+                const laatsteDatum = new Date(laatstOpDeSiteCookie);
+                const currentDate = new Date();
+                const verschil = Math.abs(Math.floor((currentDate - laatsteDatum) / 1000));
+                const dagen = Math.floor(verschil / (24 * 60 * 60));
+                let secondenOver = verschil - dagen * 24 * 60 * 60;
+                const uur = Math.floor(secondenOver / (60 * 60));
+                secondenOver -= uur * 60 * 60;
+                const minuten = Math.floor(secondenOver / 60);
+                secondenOver -= minuten * 60;
+                const weergaveTekst = `Sinds de vorige keer zijn er ${dagen} dag(en) ${uur} uur ${minuten} minuten en ${secondenOver} seconden verstreken.`;
+                document.getElementById('weergave').innerText = weergaveTekst;
+                document.cookie = 'laatstOpDeSite=' + currentDate.toUTCString();
+            } else {
+                document.getElementById('weergave').innerText = 'Dit is de eerste keer dat je op deze site komt.';
+                const currentDate = new Date().toUTCString();
+                document.cookie = 'laatstOpDeSite=' + currentDate;
+            }
+            document.getElementById('btnVerwijderMij').addEventListener('click', function () {
+                document.cookie = 'laatstOpDeSite=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;';
+                location.reload();
+            });
+        });
+        </script>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+

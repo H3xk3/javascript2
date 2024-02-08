@@ -11,15 +11,11 @@
 
   <label for="diameter">Diameter:</label>
   <input type="number" id="diameter" placeholder="Voer diameter in">
-
   <label for="hoogte">Hoogte:</label>
   <input type="number" id="hoogte" placeholder="Voer hoogte in">
-
   <button onclick="berekenVolume()">Bereken Volume</button>
-
   <h2>Resultaat:</h2>
   <p id="resultaat"></p>
-
   <script>
     "use strict";
     function Cilinder(hoogte, diameter) {
@@ -44,6 +40,5 @@
       resultaatElement.textContent = `Het volume van de cilinder is: ${cilinder.volume()}`;
     }
   </script>
-
 </body>
 </html>

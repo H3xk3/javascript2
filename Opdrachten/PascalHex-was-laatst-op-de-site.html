@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PascalHex was laatst op de site</title>
+</head>
+<body>
+<div id="weergave"></div>
+<button id="btnVerwijderMij">Verwijder mij</button>
+<script>
+    "use strict";
+    document.addEventListener('DOMContentLoaded', function () {
+        const element = document.getElementById('weergave');
+        const laatstOpDeSite = localStorage.getItem('laatstOpDeSite');
+        if (laatstOpDeSite === null) {
+            element.innerText = 'Dit is de eerste keer dat je op deze site komt.';
+        } else {
+            element.innerText = 'Je was hier de laatste keer op: ' + laatstOpDeSite;
+        }
+        localStorage.setItem('laatstOpDeSite', new Date().toLocaleString());
+        document.getElementById('btnVerwijderMij').addEventListener('click', function () {
+            localStorage.removeItem('laatstOpDeSite');
+            location.reload();
+        });
+    });
+</script>
+</body>
+</html>

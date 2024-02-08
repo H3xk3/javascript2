@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body {
+            background-color: #CCCCCC;
+        }
+    </style>
+</head>
+    <body>
+        <p><input id="achtergrondkleur"></p>
+        <p><button id="change">Verander</button></p>
+        <p><button id="reset">Reset</button></p>
+            <script>
+                "use strict";
+                // Constanten voor elementen en standaardkleur
+                const inputAchtergrondKleur = document.getElementById("achtergrondkleur");
+                const changeButton = document.getElementById("change");
+                const resetButton = document.getElementById("reset");
+                const docBody = document.body;
+                const defaultBackgroundColor = "#CCCCCC";
+                // Functie om achtergrondkleur in te stellen
+                function setBodyBackgroundColor(color) {
+                    docBody.style.backgroundColor = color;
+                    localStorage.setItem("achtergrondkleur", color);
+                }
+                // Als localStorage bestaat, gebruik dan de opgeslagen kleur
+                const storedColor = localStorage.getItem("achtergrondkleur");
+                if (storedColor) {
+                    setBodyBackgroundColor(storedColor);
+                    inputAchtergrondKleur.value = storedColor;
+                } else {
+                    setBodyBackgroundColor(defaultBackgroundColor);
+                }
+                // Event listener voor veranderknop
+                changeButton.addEventListener("click", function() {
+                    const selectedColor = inputAchtergrondKleur.value;
+                    setBodyBackgroundColor(selectedColor);
+                });
+                // Event listener voor resetknop
+                resetButton.addEventListener("click", function() {
+                    setBodyBackgroundColor(defaultBackgroundColor);
+                    inputAchtergrondKleur.value = defaultBackgroundColor;
+                });
+            </script>
+    </body>
+</html>
+        
+        
+        
+        
+        

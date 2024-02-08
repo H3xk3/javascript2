@@ -13,9 +13,9 @@
 </head>
 <body>
     <form id="myForm">
-        R: <input type="text" id="kleurRIn" maxlength="3" size="3" />
-        G: <input type="text" id="kleurGIn" maxlength="3" size="3" />
-        B: <input type="text" id="kleurBIn" maxlength="3" size="3" />
+        R: <input type="number" id="kleurRIn" min="0" max="255" step="1" />
+        G: <input type="number" id="kleurGIn" min="0" max="255" step="1" />
+        B: <input type="number" id="kleurBIn" min="0" max="255" step="1" />
         <input type="button" id="bereken" value="Bereken de kleur" />
         <input type="text" id="hexWaardeOut">
     </form>
@@ -42,19 +42,18 @@
         }
 
         function berekenKleur() {
-            const r = document.getElementById('kleurRIn').value;
-            const g = document.getElementById('kleurGIn').value;
-            const b = document.getElementById('kleurBIn').value;
+    const r = document.getElementById('kleurRIn').value;
+    const g = document.getElementById('kleurGIn').value;
+    const b = document.getElementById('kleurBIn').value;
 
-            const mijnKleurHex = new KleurHex(parseInt(r, 10), parseInt(g, 10), parseInt(b, 10));
+    const mijnKleurHex = new KleurHex(parseInt(r), parseInt(g), parseInt(b));
 
-            const hexWaardeOut = document.getElementById('hexWaardeOut');
-            const hexString = mijnKleurHex.hexString();
+    const hexWaardeOut = document.getElementById('hexWaardeOut');
+    const hexString = mijnKleurHex.hexString();
 
-            hexWaardeOut.value = hexString;
-            document.body.style.backgroundColor = hexString;
-        }
-
+    hexWaardeOut.value = hexString;
+    document.body.style.backgroundColor = hexString;
+}
         document.getElementById('bereken').addEventListener('click', berekenKleur);
     </script>
 </body>

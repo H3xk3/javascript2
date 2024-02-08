@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="nl">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>PascalHex was laatst op de site</title>
+    </head>
+    <body>
+        <div id="weergave"></div>
+            <button id="btnVerwijderMij">Verwijder mij</button>
+                <script>
+                    "use strict";
+                        document.addEventListener('DOMContentLoaded', function () {
+                            function getCookie(naam) {
+                                const waarde = "; " + document.cookie;
+                                const deel = waarde.split("; " + naam + "=");
+                                if (deel.length === 2) return deel.pop().split(";").shift();
+                            }
+                            const laatsteCookie = getCookie('laatstOpDeSite');
+                            if (laatsteCookie) {
+                                document.getElementById('weergave').innerText = 'Je was hier de laatste keer op: ' + laatsteCookie;
+                                const huidigeDatum = new Date().toUTCString();
+                                document.cookie = 'laatstOpDeSite=' + huidigeDatum;
+                            } else {
+                                document.getElementById('weergave').innerText = 'Dit is de eerste keer dat je op deze site komt.';
+                                const huidigeDatum = new Date().toUTCString();
+                                document.cookie = 'laatstOpDeSite=' + huidigeDatum;
+                            }
+                        document.getElementById('btnVerwijderMij').addEventListener('click', function () {
+                            document.cookie = 'laatstOpDeSite=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;';
+                            location.reload();
+                        });
+                    });
+                </script>
+    </body>
+</html>

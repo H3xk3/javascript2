@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div id="voorNaam"></div>
+    <div id="achterNaam"></div>
+        <script>
+            "use strict";
+            localStorage.setItem("lastname", "Smith");
+            document.getElementById("achterNaam").innerHTML = localStorage.getItem("lastname");
+            localStorage.voorNaam="John";
+            document.getElementById("voorNaam").innerHTML = localStorage.voorNaam;
+            localStorage.getal = 15;
+            let x = localStorage.getal;
+            console.log(typeof localStorage.getal);
+            console.log(10 + x);//1015
+            let xGoed = parseInt(localStorage.getal);
+            console.log(10 + xGoed);//25
+            console.log(new Date());
+            localStorage.laatstGeopend = new Date();
+            console.log(`normaal is dit :${localStorage.laatstGeopend}`);
+            let datum = localStorage.laatstGeopend;
+            console.log(Date.parse(localStorage.laatstGeopend));
+            let checkDatum = new Date(Date.parse(localStorage.laatstGeopend));
+            console.log(checkDatum.getDate());
+            console.log(checkDatum);
+        </script>
+    </body>
+</html>
+
+
+            

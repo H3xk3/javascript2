@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        "use strict";
+        let car = {
+            wheels: 4,
+            doors: 2,
+            sound: 'vroom',
+            name: 'Lightning McQueen',
+            }
+            console.log(JSON.stringify(car));
+            localStorage.car=JSON.stringify(car);
+            console.log(JSON.parse(localStorage.car));
+    </script>
+</body>
+</html>
