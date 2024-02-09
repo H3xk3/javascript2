@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pascal Hex Boek MVC</title>
+</head>
+<body>
+    <input type="text" id="isbn" name="">
+    <input type="text" id="titel" name="">
+    <input type="text" id="jaar" name="">
+    <input type="text" id="publisher" name="">
+    <input type="text" id="status" name="">
+    <button id="btnOntleend">ontleend</button>
+    <button id="btnTerugBinnen">terug binnen</button>
+
+    <script>
+        (function() {
+            const model = {
+                boek: {},
+                init: function() {
+                    this.boek = {
+                        isbn: "01234567",
+                        titel: "JavaScript, the right way",
+                        jaar: 2012,
+                        publisher: "jstherightway.com",
+                        status: "aanwezig"
+                    };
+                },
+                setStatus: function(newStatus) {
+                    this.boek.status = newStatus;
+                },
+                getData: function() {
+                    return this.boek;
+                }
+            };
+            const view = {
+                inputs: {},
+                init: function() {
+                    this.inputs = {
+                        isbn: document.getElementById('isbn'),
+                        titel: document.getElementById('titel'),
+                        jaar: document.getElementById('jaar'),
+                        publisher: document.getElementById('publisher'),
+                        status: document.getElementById('status')
+                    };
+                },
+                setView: function(book) {
+                    this.inputs.isbn.value = book.isbn;
+                    this.inputs.titel.value = book.titel;
+                    this.inputs.jaar.value = book.jaar;
+                    this.inputs.publisher.value = book.publisher;
+                    this.inputs.status.value = book.status;
+                }
+            };
+            const controller = {
+                init: function() {
+                    model.init();
+                    view.init();
+                    this.setupEventListeners();
+                    view.setView(model.getData());
+                },
+                setupEventListeners: function() {
+                    document.getElementById('btnOntleend').addEventListener('click', function() {
+                        model.setStatus("ontleend");
+                        view.setView(model.getData());
+                    });
+                    document.getElementById('btnTerugBinnen').addEventListener('click', function() {
+                        model.setStatus("terug binnen");
+                        view.setView(model.getData());
+                    });
+                }
+            };
+            controller.init();
+        })();
+    </script>
+</body>
+</html>
+
