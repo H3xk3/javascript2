@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gebruikersnaam en Nummer</title>
+</head>
+<body>
+    <button id="btnLoad">load</button>
+    <p> Gebruikersnaam: <input type="text" id="inputUserName"> Nummer: <input type="text" id="inputUserNumber"> <button id="btnUpdate">update</button> </p>
+
+    <script>
+        (function(){
+            let model = {
+                data: {
+                    userName: "admin",
+                    userNumber: "000000001"
+                },
+                setData: function(nieuweData) {
+                    console.log("Data wordt ingesteld in het model");
+                    this.data.userName = nieuweData.userName;
+                    this.data.userNumber = nieuweData.userNumber;
+                    console.log(model.getData());
+                },
+                getData: function() {
+                    console.log("Data wordt opgevraagd aan het model");
+                    return this.data;
+                }
+            };
+
+            let view = {
+                toon: function(ontvangenData) {
+                    document.getElementById("inputUserName").value = ontvangenData.userName;
+                    document.getElementById("inputUserNumber").value = ontvangenData.userNumber;
+                }
+            };
+
+            let controller = {
+                init: function() {
+                    document.getElementById('btnLoad').addEventListener('click', controller.load);
+                    document.getElementById('btnUpdate').addEventListener('click', controller.update);
+                },
+                load: function() {
+                    view.toon(model.getData());
+                },
+                update: function() {
+                    let ingevoerdeData = {
+                        userName: document.getElementById("inputUserName").value,
+                        userNumber: document.getElementById('inputUserNumber').value
+                    };
+                    model.setData(ingevoerdeData);
+                }
+            };
+
+            controller.init();
+        })();
+    </script>
+</body>
+</html>

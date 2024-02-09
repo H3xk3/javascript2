@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>Oefening initialen</h1>
+<form action="" id="form1" method="POST">
+Vul de voornaam in:
+<input id="inputVoornaam" type="text">
+Vul de achternaam in:
+<input id="inputAchternaam" type="text">
+<input id="btnVerzend" type="button" value="Voeg naam toe">
+</form>
+<h2>De initialen</h2>
+<div id="divInitialen"></div>
+<script>
+    "use strict";
+
+(function () {
+    let model = {
+        personen: [],
+        voegPersoonToe(persoon) {
+            this.personen.push(persoon);
+        },
+        getPersonen() {
+            return this.personen;
+        }
+    };
+
+    let view = {
+        setup() {
+            this.inputVoornaam = document.getElementById('inputVoornaam');
+            this.inputAchternaam = document.getElementById('inputAchternaam');
+            this.divInitialen = document.getElementById('divInitialen');
+        },
+        renderNamen(alleNamen) {
+            this.divInitialen.innerHTML = "";
+            alleNamen.forEach(persoon => {
+                this.divInitialen.innerHTML += `<p>Naam: ${persoon.voornaam} ${persoon.achternaam} -> initialen: ${this.getInitials(persoon)}</p>`;
+            });
+        },
+        getInitials(object) {
+            return object.voornaam.charAt(0) + object.achternaam.charAt(0);
+        },
+        clear() {
+            this.inputVoornaam.value = '';
+            this.inputAchternaam.value = '';
+        }
+    };
+
+    let controller = {
+        setup() {
+            this.inputVoornaam = document.getElementById('inputVoornaam');
+            this.inputAchternaam = document.getElementById('inputAchternaam');
+            this.btnVerzend = document.getElementById('btnVerzend');
+            this.btnVerzend.addEventListener('click', () => this.verstuurForm());
+        },
+        verstuurForm() {
+            let persoon = {
+                voornaam: this.inputVoornaam.value.trim(),
+                achternaam: this.inputAchternaam.value.trim()
+            };
+
+            if (persoon.voornaam.length === 0 || persoon.achternaam.length === 0) {
+                alert('Geef de volledige naam in aub.');
+            } else {
+                model.voegPersoonToe(persoon);
+                view.renderNamen(model.getPersonen());
+                view.clear();
+            }
+        }
+    };
+
+    view.setup();
+    controller.setup();
+})();
+
+</script>
+</body>
+</html>

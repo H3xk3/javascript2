@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Team JavaScript</title>
+    <style>
+        .spanError {
+            color: red;
+        }
+    </style>
+</head>
+<body>
+    <h1>Team JavaScript</h1>
+    <form action="" id="form1" method="POST">
+        <p>
+            <label for="inputNaam">Vul de naam in:</label>
+            <input id="inputNaam" type="text">
+            <span class="spanError" id="spanErrorNaam"></span>
+        </p>
+        <p>
+            <label for="inputJob">Vul de job in:</label>
+            <input id="inputJob" type="text">
+            <span class="spanError" id="spanErrorJob"></span>
+        </p>
+        <p>
+            <label for="inputEmail">Vul de email in:</label>
+            <input id="inputEmail" type="text">
+            <span class="spanError" id="spanErrorEmail"></span>
+        </p>
+        <p>
+            <input id="btnVerzend" type="button" value="Voeg teamlid toe">
+        </p>
+    </form>
+    <h2>Teamleden</h2>
+    <div id="divAlleTeamLeden"></div>
+
+    <script>
+        (function () {
+    let model = {
+        teamLeden: [],
+        setData: function (nieuwLid) {
+            model.teamLeden.push(nieuwLid);
+        }
+    };
+
+    let view = {
+        setup: function () {
+            view.inputNaam = document.getElementById('inputNaam');
+            view.inputJob = document.getElementById('inputJob');
+            view.inputEmail = document.getElementById('inputEmail');
+            view.divAlleTeamLeden = document.getElementById('divAlleTeamLeden');
+        },
+        showError: function (span, msg) {
+            span.innerText = msg;
+        },
+        renderLid: function (nieuwLid) {
+            view.divAlleTeamLeden.innerHTML += `<p>${nieuwLid.naam} - ${nieuwLid.job} - ${nieuwLid.email}</p>`;
+        },
+        clearInputs: function () {
+            view.inputNaam.value = '';
+            view.inputJob.value = '';
+            view.inputEmail.value = '';
+        }
+    };
+
+    let controller = {
+        setup: function () {
+            controller.inputNaam = document.getElementById('inputNaam');
+            controller.inputJob = document.getElementById('inputJob');
+            controller.inputEmail = document.getElementById('inputEmail');
+            controller.spanErrorNaam = document.getElementById('spanErrorNaam');
+            controller.spanErrorJob = document.getElementById('spanErrorJob');
+            controller.spanErrorEmail = document.getElementById('spanErrorEmail');
+            controller.btnVerzend = document.getElementById('btnVerzend');
+            controller.btnVerzend.addEventListener('click', controller.verstuurForm);
+        },
+        verstuurForm: function () {
+            if (controller.inputNaam.value.length == 0) {
+                view.showError(controller.spanErrorNaam, 'Geef een naam in aub.');
+            } else {
+                view.showError(controller.spanErrorNaam, '');
+            }
+
+            if (controller.inputJob.value.length == 0) {
+                view.showError(controller.spanErrorJob, 'Geef een job in aub.');
+            } else {
+                view.showError(controller.spanErrorJob, '');
+            }
+
+            if (!controller.validateEmail(controller.inputEmail.value)) {
+                view.showError(controller.spanErrorEmail, 'Geef een geldig e-mailadres in.');
+            } else {
+                view.showError(controller.spanErrorEmail, '');
+            }
+
+            if (controller.inputNaam.value.length != 0 && controller.inputJob.value.length != 0 && controller.validateEmail(controller.inputEmail.value)) {
+                let nieuwLid = {
+                    naam: controller.inputNaam.value,
+                    job: controller.inputJob.value,
+                    email: controller.inputEmail.value
+                };
+                model.setData(nieuwLid);
+                view.renderLid(nieuwLid);
+                view.clearInputs();
+            }
+        },
+        validateEmail: function (email) {
+            // Eenvoudige e-mailvalidatie met reguliere expressie
+            let re = /\S+@\S+\.\S+/;
+            return re.test(email);
+        }
+    };
+
+    view.setup();
+    controller.setup();
+})();
+
+    </script>
+</body>
+</html>

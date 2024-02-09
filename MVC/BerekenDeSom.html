@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MVC Som</title>
+</head>
+<body>
+    <p id="resultaat"></p>
+
+    <script>
+        (function(){
+            let model = {
+                getal1: 30,
+                getal2: 20
+            };
+
+            let view = {
+                resultaat: document.getElementById('resultaat'),
+                toonUitkomst: function(result) {
+                    view.resultaat.innerHTML = result;
+                }
+            };
+
+            let controller = {
+                start: function() {
+                    let resultaat = controller.bereken(model.getal1, model.getal2);
+                    view.toonUitkomst(resultaat);
+                },
+                bereken: function(a, b) {
+                    let som = a + b;
+                    return som;
+                }
+            };
+
+            controller.start();
+        })();
+    </script>
+</body>
+</html>

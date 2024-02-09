@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Oefening IIFE en MVC</title>
+</head>
+<body>
+    <p id="zin"></p>
+
+    <script>
+        (function(){
+            let model = {
+                naam: "JavaScript",
+                actie: "rocks",
+                leesteken: "!"
+            };
+
+            let view = {
+                zin: document.getElementById('zin'),
+                toonZin: function(result) {
+                    view.zin.innerHTML = result;
+                }
+            };
+
+            let controller = {
+                start: function() {
+                    let teMakenZin = controller.maakZin(model.naam, model.actie, model.leesteken);
+                    view.toonZin(teMakenZin);
+                },
+                maakZin: function(deel1, deel2, deel3) {
+                    let zin = `${deel1} ${deel2}${deel3}`;
+                    return zin;
+                }
+            };
+
+            controller.start();
+        })();
+    </script>
+</body>
+</html>

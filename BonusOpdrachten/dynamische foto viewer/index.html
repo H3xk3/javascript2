@@ -9,9 +9,8 @@
 </head>
 <body>
     <p><img id="largeImg" src="550x400/ipad.jpg" alt="Large image"></p>
-    <div id="thumbs">
-    </div>
-    <button id="add">Voeg afbeelding toe</button>
+        <div id="thumbs"></div>
+            <button id="add">Voeg afbeelding toe</button>
     <script>
         "use strict";
         class Model {
@@ -34,7 +33,8 @@
             }
             verhoogTeller() {
                 this.teller++;
-            }}
+            }
+        }
         class View {
             constructor() {
                 this.largeImg = document.getElementById('largeImg');
@@ -65,14 +65,15 @@
             }
         }
         class Controller {
-            constructor(model, view) {
-                this.model = model;
-                this.view = view;
+            constructor() {
+                this.model = new Model();
+                this.view = new View();
                 this.init();
             }
             init() {
                 this.view.init(this);
                 this.addEventListeners();
+                this.setupInitialContent();
             }
             addEventListeners() {
                 document.getElementById('add').addEventListener('click', () => this.add());
@@ -89,15 +90,10 @@
                 this.view.toonGroteImage(e);
             }
         }
-        window.addEventListener("DOMContentLoaded", function () {
-            let model = new Model();
-            let view = new View();
-            let controller = new Controller(model, view);
-        });
+        const controller = new Controller();
     </script>
 </body>
 </html>
-
 
 
 
