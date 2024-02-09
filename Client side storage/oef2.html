@@ -1,26 +1,24 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Background Color Changer</title>
-    <style>
-        body {
-            background-color: #CCCCCC;
-        }
-    </style>
-</head>
+    </head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Background Color Changer</title>
+        <style>
+            body {
+                background-color: #CCCCCC;
+            }
+        </style>
+    </head>
 <body>
     <p><input id="achtergrondkleur"></p>
-    <p><button id="change">Verander</button></p>
-    <p><button id="reset">Reset</button></p>
-
+        <p><button id="change">Verander</button></p>
+            <p><button id="reset">Reset</button></p>
     <script>
         // Opvragen van de input slechts één keer en opslaan in een variabele
         let inputAchtergrondKleur = document.getElementById("achtergrondkleur");
         // Opvragen van document.body slechts één keer en opslaan in een variabele
         let docBody = document.body;
-
         // Controleren of localStorage.achtergrondkleur bestaat
         if (localStorage.achtergrondkleur) {
             // Als het bestaat, gebruik het als achtergrondkleur voor de body
@@ -29,10 +27,8 @@
             // Als het niet bestaat, definieer localStorage.achtergrondkleur en vul het met #CCCCCC
             localStorage.achtergrondkleur = '#CCCCCC';
         }
-
         // De waarde van de input instellen op localStorage.achtergrondkleur
         inputAchtergrondKleur.value = localStorage.achtergrondkleur;
-
         // Event listener voor het klikken op de "Verander" knop
         document.getElementById("change").addEventListener("click", function() {
             // Pas localStorage.achtergrondkleur aan
@@ -40,7 +36,6 @@
             // Pas body achtergrondkleur aan
             docBody.style.backgroundColor = localStorage.achtergrondkleur;
         });
-
         // Event listener voor het klikken op de "Reset" knop
         document.getElementById("reset").addEventListener("click", function() {
             // Pas localStorage.achtergrondkleur aan naar #CCCCCC
@@ -53,5 +48,3 @@
     </script>
 </body>
 </html>
-
-    

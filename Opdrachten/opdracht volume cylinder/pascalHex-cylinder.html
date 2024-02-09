@@ -6,39 +6,37 @@
   <title>PascalHex-cylinder</title>
 </head>
 <body>
-
   <h1>Cilinder Berekening</h1>
-
-  <label for="diameter">Diameter:</label>
-  <input type="number" id="diameter" placeholder="Voer diameter in">
-  <label for="hoogte">Hoogte:</label>
-  <input type="number" id="hoogte" placeholder="Voer hoogte in">
-  <button onclick="berekenVolume()">Bereken Volume</button>
-  <h2>Resultaat:</h2>
-  <p id="resultaat"></p>
-  <script>
-    "use strict";
-    function Cilinder(hoogte, diameter) {
-      this.hoogte = hoogte;
-      this.diameter = diameter;
-    }
-    Cilinder.prototype.volume = function() {
-      const straal = this.diameter / 2;
-      const pi = Math.PI;
-      const volume = pi * straal * straal * this.hoogte;
-      return volume.toFixed(4);
-    };
-    function berekenVolume() {
-      const diameter = parseFloat(document.getElementById('diameter').value);
-      const hoogte = parseFloat(document.getElementById('hoogte').value);
-      if (isNaN(diameter) || isNaN(hoogte)) {
-        alert('Voer geldige getallen in voor diameter en hoogte.');
-        return;
+    <label for="diameter">Diameter:</label>
+      <input type="number" id="diameter" placeholder="Voer diameter in">
+        <label for="hoogte">Hoogte:</label>
+          <input type="number" id="hoogte" placeholder="Voer hoogte in">
+            <button onclick="berekenVolume()">Bereken Volume</button>
+              <h2>Resultaat:</h2>
+                <p id="resultaat"></p>
+    <script>
+      "use strict";
+      function Cilinder(hoogte, diameter) {
+        this.hoogte = hoogte;
+        this.diameter = diameter;
       }
-      const cilinder = new Cilinder(hoogte, diameter);
-      const resultaatElement = document.getElementById('resultaat');
-      resultaatElement.textContent = `Het volume van de cilinder is: ${cilinder.volume()}`;
-    }
-  </script>
+      Cilinder.prototype.volume = function() {
+        const straal = this.diameter / 2;
+        const pi = Math.PI;
+        const volume = pi * straal * straal * this.hoogte;
+        return volume.toFixed(4);
+      };
+      function berekenVolume() {
+        const diameter = parseFloat(document.getElementById('diameter').value);
+        const hoogte = parseFloat(document.getElementById('hoogte').value);
+        if (isNaN(diameter) || isNaN(hoogte)) {
+          alert('Voer geldige getallen in voor diameter en hoogte.');
+          return;
+        }
+        const cilinder = new Cilinder(hoogte, diameter);
+        const resultaatElement = document.getElementById('resultaat');
+        resultaatElement.textContent = `Het volume van de cilinder is: ${cilinder.volume()}`;
+      }
+    </script>
 </body>
 </html>
