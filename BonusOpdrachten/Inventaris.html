@@ -1,215 +1,181 @@
 <!DOCTYPE html>
 <html lang="nl">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PascalHex maakt de Inventaris</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 20px;
-            padding: 0;
-        }
-        h1, h2 {
-            color: #333;
-        }
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-top: 20px;
-        }
-        th, td {
-            border: 1px solid #ddd;
-            padding: 8px;
-            text-align: left;
-        }
-        th {
-            background-color: #f2f2f2;
-        }
-        
-        .update
-        {background-color: rgba(21, 198, 21, 0.589);}
-       .deoete{
-        background-color: red;
-       }
-    </style>
-</head>
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>PascalHex maakt de Inventaris</title>
+    </head>
 <body>
     <h1>De beschikbare gegevens</h1>
-    <div id="weergaveGegevens"></div>
-    <h2>Voeg gegevens toe</h2>
-    <form id="productForm">
-        <label for="productId">ID:</label>
-        <input type="text" id="productId">
-        <label for="productName">Naam:</label>
-        <input type="text" id="productName">
-        <label for="productPrice">Prijs:</label>
-        <input type="text" id="productPrice">
-        <label for="productQuantity">Hoeveelheid:</label>
-        <input type="text" id="productQuantity">
-        <button type="button" onclick="controller.maakNieuwProduct()">Voeg toe</button>
-    </form>
+        <div id="weergaveGegevens"></div>
+            <h2>Voeg gegevens toe</h2>
+                <form id="productForm">
+                    <label for="productId">ID:</label>
+                    <input type="text" id="productId">
+                    <label for="productName">Naam:</label>
+                    <input type="text" id="productName">
+                    <label for="productPrice">Prijs:</label>
+                    <input type="text" id="productPrice">
+                    <label for="productQuantity">Hoeveelheid:</label>
+                    <input type="text" id="productQuantity">
+                    <button type="button" onclick="controller.maakNieuwProduct()">Voeg toe</button>
+                </form>
     <script>
-        (function() {
-            "use strict";
-
-            class Product {
-                constructor(id, naam, prijs, hoeveelheid) {
-                    this.id = id;
-                    this.naam = naam;
-                    this.prijs = prijs;
-                    this.hoeveelheid = hoeveelheid;
+        "use strict";
+        class Product {
+            constructor(id, naam, prijs, hoeveelheid) {
+                this.id = id;
+                this.naam = naam;
+                this.prijs = prijs;
+                this.hoeveelheid = hoeveelheid;
+            }
+        }
+        class Voorraad {
+            constructor() {
+                this.alleProducten = [];
+                this.init();
+            }
+            init() {
+                const opgeslagenData = localStorage.getItem('inventaris');
+                if (opgeslagenData) {
+                    this.alleProducten = JSON.parse(opgeslagenData);
                 }
             }
-
-            class Voorraad {
-                constructor() {
-                    this.alleProducten = [];
-                    this.init();
-                }
-
-                init() {
-                    const opgeslagenData = localStorage.getItem('inventaris');
-                    if (opgeslagenData) {
-                        this.alleProducten = JSON.parse(opgeslagenData);
-                    }
-                }
-
-                voegNieuwProductToe(product) {
-                    this.alleProducten.unshift(product);
+            voegNieuwProductToe(product) {
+                this.alleProducten.unshift(product);
+                this.bewaarNaarLocalStorage();
+            }
+            krijgAlleProducten() {
+                return this.alleProducten;
+            }
+            updateProduct(id, bijgewerktProduct) {
+                const index = this.alleProducten.findIndex(product => product.id === id);
+                if (index !== -1) {
+                    this.alleProducten[index] = bijgewerktProduct;
                     this.bewaarNaarLocalStorage();
-                }
-
-                krijgAlleProducten() {
-                    return this.alleProducten;
-                }
-
-                updateProduct(id, bijgewerktProduct) {
-                    const index = this.alleProducten.findIndex(product => product.id === id);
-                    if (index !== -1) {
-                        this.alleProducten[index] = bijgewerktProduct;
-                        this.bewaarNaarLocalStorage();
-                    }
-                }
-
-                verwijderProduct(id) {
-                    this.alleProducten = this.alleProducten.filter(product => product.id !== id);
-                    this.bewaarNaarLocalStorage();
-                }
-
-                bewaarNaarLocalStorage() {
-                    localStorage.setItem('inventaris', JSON.stringify(this.alleProducten));
                 }
             }
-
-            class Weergave {
-                toonTabel(producten) {
-                    const weergaveDiv = document.getElementById('weergaveGegevens');
-                    weergaveDiv.innerHTML = '';
-                    const tabel = document.createElement('table');
-                    const koprij = tabel.createTHead().insertRow(0);
-                    const labels = ['ID', 'Naam', 'Prijs', 'Hoeveelheid', 'Acties'];
-                    labels.forEach(label => {
-                        const th = document.createElement('th');
-                        th.textContent = label;
-                        koprij.appendChild(th);
-                    });
-                    if (producten.length === 0) {
-                        weergaveDiv.appendChild(tabel);
-                        return;
-                    }
-                    producten.forEach(product => {
-                        const rij = tabel.insertRow(-1);
-                        const celId = rij.insertCell(0);
-                        const celNaam = rij.insertCell(1);
-                        const celPrijs = rij.insertCell(2);
-                        const celHoeveelheid = rij.insertCell(3);
-                        const celActies = rij.insertCell(4);
-                        celId.textContent = product.id;
-
-                        const inputNaam = document.createElement('input');
-                        inputNaam.type = 'text';
-                        inputNaam.value = product.naam;
-                        celNaam.appendChild(inputNaam);
-
-                        const inputPrijs = document.createElement('input');
-                        inputPrijs.type = 'text';
-                        inputPrijs.value = product.prijs;
-                        celPrijs.appendChild(inputPrijs);
-
-                        const inputHoeveelheid = document.createElement('input');
-                        inputHoeveelheid.type = 'text';
-                        inputHoeveelheid.value = product.hoeveelheid;
-                        celHoeveelheid.appendChild(inputHoeveelheid);
-
-                        const updateKnop = document.createElement('button');
-                        updateKnop.textContent = 'Update';
-                        updateKnop.classList.add('update');
-                        updateKnop.addEventListener('click', () => {
-                            const updatedProduct = new Product(product.id, inputNaam.value, inputPrijs.value, inputHoeveelheid.value);
-                            controller.updateRecord(product.id, updatedProduct);
-                        });
-                        celActies.appendChild(updateKnop);
-
-                        const verwijderKnop = document.createElement('button');
-                        verwijderKnop.textContent = 'Verwijder';
-                        verwijderKnop.classList.add('delete');
-                        verwijderKnop.addEventListener('click', () => controller.verwijderRecord(product.id));
-                        celActies.appendChild(verwijderKnop);
-                    });
+            verwijderProduct(id) {
+                this.alleProducten = this.alleProducten.filter(product => product.id !== id);
+                this.bewaarNaarLocalStorage();
+            }
+            bewaarNaarLocalStorage() {
+                localStorage.setItem('inventaris', JSON.stringify(this.alleProducten));
+            }
+        }
+        class Weergave {
+            toonTabel(producten) {
+                const weergaveDiv = document.getElementById('weergaveGegevens');
+                weergaveDiv.innerHTML = '';
+                const tabel = document.createElement('table');
+                const koprij = tabel.createTHead().insertRow(0);
+                const labels = ['ID', 'Naam', 'Prijs', 'Hoeveelheid', 'Acties'];
+                labels.forEach(label => {
+                    const th = document.createElement('th');
+                    th.textContent = label;
+                    koprij.appendChild(th);
+                });
+                if (producten.length === 0) {
                     weergaveDiv.appendChild(tabel);
+                    return;
+                }
+                producten.forEach(product => {
+                    const rij = tabel.insertRow(-1);
+                    const celId = rij.insertCell(0);
+                    const celNaam = rij.insertCell(1);
+                    const celPrijs = rij.insertCell(2);
+                    const celHoeveelheid = rij.insertCell(3);
+                    const celActies = rij.insertCell(4);
+                    celId.textContent = product.id;
+                    const inputNaam = document.createElement('input');
+                    inputNaam.type = 'text';
+                    inputNaam.value = product.naam;
+                    inputNaam.classList.add('editable');
+                    celNaam.appendChild(inputNaam);
+                    const inputPrijs = document.createElement('input');
+                    inputPrijs.type = 'text';
+                    inputPrijs.value = product.prijs;
+                    inputPrijs.classList.add('editable');
+                    celPrijs.appendChild(inputPrijs);
+                    const inputHoeveelheid = document.createElement('input');
+                    inputHoeveelheid.type = 'text';
+                    inputHoeveelheid.value = product.hoeveelheid;
+                    inputHoeveelheid.classList.add('editable');
+                    const updateKnop = document.createElement('button');
+                    updateKnop.textContent = 'Update';
+                    updateKnop.addEventListener('click', () => {
+                        const nieuweNaam = inputNaam.value;
+                        const nieuwePrijs = inputPrijs.value;
+                        const nieuweHoeveelheid = inputHoeveelheid.value;
+                        controller.updateRecord(product.id, nieuweNaam, nieuwePrijs, nieuweHoeveelheid);
+                    });
+                    const verwijderKnop = document.createElement('button');
+                    verwijderKnop.textContent = 'Verwijder';
+                    verwijderKnop.addEventListener('click', () => controller.verwijderRecord(product.id));
+                    celHoeveelheid.appendChild(inputHoeveelheid);
+                    celActies.appendChild(updateKnop);
+                    celActies.appendChild(verwijderKnop);
+                });
+                weergaveDiv.appendChild(tabel);
+            }
+        }
+        class Controller {
+            constructor() {
+                this.rijTeller = 1;
+                this.voorraad = new Voorraad();
+                this.weergave = new Weergave();
+                this.init();
+            }
+            init() {
+                this.toonAlleRecordLijst(); 
+            }
+            toonAlleRecordLijst() {
+                const producten = this.voorraad.krijgAlleProducten();
+                this.weergave.toonTabel(producten);
+            }
+            maakNieuwProduct() {
+                const id = document.getElementById('productId').value;
+                const naam = document.getElementById('productName').value;
+                const prijs = document.getElementById('productPrice').value;
+                const hoeveelheid = document.getElementById('productQuantity').value;
+                const geformatteerdePrijs = `${parseFloat(prijs).toFixed(2)} €`;
+                const nieuwProduct = new Product(id, naam, geformatteerdePrijs, hoeveelheid);
+                this.voorraad.voegNieuwProductToe(nieuwProduct);
+                this.toonAlleRecordLijst();
+            }
+            updateRecord(id, nieuweNaam, nieuwePrijs, nieuweHoeveelheid) {
+                const bijgewerktProduct = this.voorraad.krijgAlleProducten().find(product => product.id === id);
+                if (bijgewerktProduct) {
+                    const geformatteerdePrijs = `${parseFloat(nieuwePrijs).toFixed(2)} €`;
+                    bijgewerktProduct.naam = nieuweNaam;
+                    bijgewerktProduct.prijs = geformatteerdePrijs;
+                    bijgewerktProduct.hoeveelheid = nieuweHoeveelheid;
+                    this.voorraad.updateProduct(id, bijgewerktProduct);
+                    this.toonAlleRecordLijst();
                 }
             }
-
-            class Controller {
-                constructor() {
-                    this.voorraad = new Voorraad();
-                    this.weergave = new Weergave();
-                    this.init();
-                }
-
-                init() {
-                    this.toonAlleRecordLijst();
-                }
-
-                toonAlleRecordLijst() {
-                    const producten = this.voorraad.krijgAlleProducten();
-                    this.weergave.toonTabel(producten);
-                }
-
-                maakNieuwProduct() {
-                    const id = document.getElementById('productId').value;
-                    const naam = document.getElementById('productName').value;
-                    const prijs = document.getElementById('productPrice').value;
-                    const hoeveelheid = document.getElementById('productQuantity').value;
-                    const geformatteerdePrijs = `${parseFloat(prijs).toFixed(2)} €`;
-                    const nieuwProduct = new Product(id, naam, geformatteerdePrijs, hoeveelheid);
-                    this.voorraad.voegNieuwProductToe(nieuwProduct);
-                    this.toonAlleRecordLijst();
-                    this.resetForm();
-                }
-
-                resetForm() {
-                    document.getElementById('productId').value = '';
-                    document.getElementById('productName').value = '';
-                    document.getElementById('productPrice').value = '';
-                    document.getElementById('productQuantity').value = '';
-                }
-
-                updateRecord(id, updatedProduct) {
-                    this.voorraad.updateProduct(id, updatedProduct);
-                    this.toonAlleRecordLijst();
-                }
-
-                verwijderRecord(id) {
-                    this.voorraad.verwijderProduct(id);
-                    this.toonAlleRecordLijst();
-                }
+            verwijderRecord(id) {
+                this.voorraad.verwijderProduct(id);
+                this.toonAlleRecordLijst();
             }
-
-            const controller = new Controller();
-        })();
+        }
+        const controller = new Controller();
     </script>
 </body>
 </html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
