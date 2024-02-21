@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pascal Hex Boek MVC</title>
+</head>
+<body>
+    <input type="text" id="isbn" name="">
+    <input type="text" id="titel" name="">
+    <input type="text" id="jaar" name="">
+    <input type="text" id="publisher" name="">
+    <input type="text" id="status" name="">
+    <button id="btnOntleend">ontleend</button>
+    <button id="btnTerugBinnen">terug binnen</button>
+        <div id="statusDiv"></div>
+    <script>
+        (function() {
+            class Model {
+                constructor() {
+                    this.book = {};
+                    this.init();
+                }
+                init() {
+                    this.book = {
+                        isbn: "01234567",
+                        titel: "JavaScript, the right way",
+                        jaar: 2012,
+                        publisher: "jstherightway.com",
+                        status: "aanwezig",
+                        ontleningen: []
+                    };
+                }
+                setStatus(nieuweStatus) {
+                    const date = new Date().toLocaleDateString();
+                    const ontleening = { datum: date, status: nieuweStatus };
+                    this.book.ontleningen.push(ontleening);
+                    this.book.status = nieuweStatus;
+                }
+                getData() {
+                    return this.book;
+                }
+            }
+            class View {
+                constructor() {
+                    this.inputs = {
+                        isbn: document.getElementById('isbn'),
+                        titel: document.getElementById('titel'),
+                        jaar: document.getElementById('jaar'),
+                        publisher: document.getElementById('publisher'),
+                        status: document.getElementById('status')
+                    };
+                    this.statusDiv = document.getElementById('statusDiv');
+                    this.init();
+                }
+                init() {
+                    this.setView({});
+                }
+                setView(book) {
+                    this.inputs.isbn.value = book.isbn || '';
+                    this.inputs.titel.value = book.titel || '';
+                    this.inputs.jaar.value = book.jaar || '';
+                    this.inputs.publisher.value = book.publisher || '';
+                    this.inputs.status.value = book.status || '';
+                    let statusMessage = '';
+                    if (book.ontleningen && book.ontleningen.length > 0) {
+                        statusMessage += "<ul>";
+                        book.ontleningen.forEach(function(ontlening) {
+                            statusMessage += `<li>${ontlening.status} op ${ontlening.datum}</li>`;
+                        });
+                        statusMessage += "</ul>";
+                    }
+                    this.statusDiv.innerHTML = statusMessage;
+                }
+            }
+            class Controller {
+                constructor(model, view) {
+                    this.model = model;
+                    this.view = view;
+                    this.model.init();
+                    this.view.setView(this.model.getData());
+                    this.setupEventListeners();
+                }
+                setupEventListeners() {
+                    document.getElementById('btnOntleend').addEventListener('click', () => {
+                        this.model.setStatus("ontleend");
+                        this.view.setView(this.model.getData());
+                    });
+                    document.getElementById('btnTerugBinnen').addEventListener('click', () => {
+                        this.model.setStatus("terug binnen");
+                        this.view.setView(this.model.getData());
+                    });
+                }
+            }
+            const model = new Model();
+            const view = new View();
+            const controller = new Controller(model, view);
+        })();
+    </script>
+</body>
+</html>

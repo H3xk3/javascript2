@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pascal Hex Boek MVC</title>
+</head>
+<body>
+    <input type="text" id="isbn" name="">
+    <input type="text" id="titel" name="">
+    <input type="text" id="jaar" name="">
+    <input type="text" id="publisher" name="">
+    <input type="text" id="status" name="">
+    <button id="btnOntleend">ontleend</button>
+    <button id="btnTerugBinnen">terug binnen</button>
+    
+    <div id="statusDiv"></div>
+
+    <script>
+        (function() {
+            const model = {
+                boek: {},
+                init: function() {
+                    this.boek = {
+                        isbn: "01234567",
+                        titel: "JavaScript, the right way",
+                        jaar: 2012,
+                        publisher: "jstherightway.com",
+                        status: "aanwezig",
+                        ontleningen: []
+                    };
+                },
+                setStatus: function(nieuweStatus) {
+                    const date = new Date().toLocaleDateString();
+                    if (nieuweStatus === "ontleend") {
+                        this.boek.ontleening = { datum: date, status: nieuweStatus };
+                        this.boek.ontleningen.push(this.boek.ontleening);
+                    } else {
+                        this.boek.ontleening = { datum: date, status: nieuweStatus };
+                        this.boek.ontleningen.push(this.boek.ontleening);
+                    }
+                    this.boek.status = nieuweStatus;
+                },
+                getData: function() {
+                    return this.boek;
+                }
+            };
+            const view = {
+                inputs: {},
+                statusDiv: {},
+                init: function() {
+                    this.inputs = {
+                        isbn: document.getElementById('isbn'),
+                        titel: document.getElementById('titel'),
+                        jaar: document.getElementById('jaar'),
+                        publisher: document.getElementById('publisher'),
+                        status: document.getElementById('status')
+                    };
+                    this.statusDiv = document.getElementById('statusDiv');
+                },
+                setView: function(book) {
+                    this.inputs.isbn.value = book.isbn;
+                    this.inputs.titel.value = book.titel;
+                    this.inputs.jaar.value = book.jaar;
+                    this.inputs.publisher.value = book.publisher;
+                    this.inputs.status.value = book.status;
+
+                    let statusMessage = '';
+                    if (book.ontleningen.length > 0) {
+                        statusMessage += "<ul>";
+                        book.ontleningen.forEach(function(ontlening) {
+                            statusMessage += `<li>${ontlening.status} op ${ontlening.datum}</li>`;
+                        });
+                        statusMessage += "</ul>";
+                    }
+                    this.statusDiv.innerHTML = statusMessage;
+                }
+            };
+            const controller = {
+                init: function() {
+                    model.init();
+                    view.init();
+                    this.setupEventListeners();
+                    view.setView(model.getData());
+                },
+                setupEventListeners: function() {
+                    document.getElementById('btnOntleend').addEventListener('click', function() {
+                        model.setStatus("ontleend");
+                        view.setView(model.getData());
+                    });
+                    document.getElementById('btnTerugBinnen').addEventListener('click', function() {
+                        model.setStatus("terug binnen");
+                        view.setView(model.getData());
+                    });
+                }
+            };
+            controller.init();
+        })();
+    </script>
+</body>
+</html>

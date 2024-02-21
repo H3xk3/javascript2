@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mijn Boek MVC</title>
+</head>
+<body>
+
+<div id="boekGegevens">
+    <p><strong>ISBN:</strong> <span id="isbnDisplay"></span></p>
+    <p><strong>Titel:</strong> <span id="titelDisplay"></span></p>
+    <p><strong>Jaar van uitgave:</strong> <span id="jaarDisplay"></span></p>
+    <p><strong>Uitgeverij:</strong> <span id="publisherDisplay"></span></p>
+    <p><strong>Status:</strong> <span id="statusDisplay"></span></p>
+</div>
+
+<input type="text" id="isbn" name="" placeholder="ISBN">
+<input type="text" id="titel" name="" placeholder="Titel">
+<input type="text" id="jaar" name="" placeholder="Jaar van uitgave">
+<input type="text" id="publisher" name="" placeholder="Uitgeverij">
+<input type="text" id="status" name="" placeholder="Status">
+<button id="btnOntleend">Ontleend</button>
+<button id="btnTerugBinnen">Terug binnen</button>
+
+<script>
+    (function() {
+        const model = {
+            boek: {},
+            init: function() {
+                this.boek = {
+                    isbn: "01234567",
+                    titel: "JavaScript, the right way",
+                    jaar: 2012,
+                    publisher: "jstherightway.com",
+                    status: "aanwezig"
+                };
+            },
+            setStatus: function(newStatus) {
+                this.boek.status = newStatus;
+                view.setView(this.boek);
+            },
+            getData: function() {
+                return this.boek;
+            }
+        };
+        const view = {
+            isbnInput: document.getElementById('isbn'),
+            titelInput: document.getElementById('titel'),
+            jaarInput: document.getElementById('jaar'),
+            publisherInput: document.getElementById('publisher'),
+            statusInput: document.getElementById('status'),
+            isbnDisplay: document.getElementById('isbnDisplay'),
+            titelDisplay: document.getElementById('titelDisplay'),
+            jaarDisplay: document.getElementById('jaarDisplay'),
+            publisherDisplay: document.getElementById('publisherDisplay'),
+            statusDisplay: document.getElementById('statusDisplay'),
+            init: function() {
+                this.isbnInput.addEventListener('input', this.handleInput);
+                this.titelInput.addEventListener('input', this.handleInput);
+                this.jaarInput.addEventListener('input', this.handleInput);
+                this.publisherInput.addEventListener('input', this.handleInput);
+                this.statusInput.addEventListener('input', this.handleInput);
+            },
+            setView: function(data) {
+                this.isbnInput.value = data.isbn;
+                this.titelInput.value = data.titel;
+                this.jaarInput.value = data.jaar;
+                this.publisherInput.value = data.publisher;
+                this.statusInput.value = data.status;
+                this.isbnDisplay.textContent = data.isbn;
+                this.titelDisplay.textContent = data.titel;
+                this.jaarDisplay.textContent = data.jaar;
+                this.publisherDisplay.textContent = data.publisher;
+                this.statusDisplay.textContent = data.status;
+            },
+            handleInput: function() {
+                model.boek.isbn = view.isbnInput.value;
+                model.boek.titel = view.titelInput.value;
+                model.boek.jaar = view.jaarInput.value;
+                model.boek.publisher = view.publisherInput.value;
+                model.boek.status = view.statusInput.value;
+                view.setView(model.getData());
+            }
+        };
+            const controller = {
+            init: function() {
+                model.init();
+                view.init();
+                this.addEventListeners();
+                view.setView(model.getData());
+            },
+            addEventListeners: function() {
+                document.getElementById('btnOntleend').addEventListener('click', this.ontleendClicked);
+                document.getElementById('btnTerugBinnen').addEventListener('click', this.terugBinnenClicked);
+            },
+            ontleendClicked: function() {
+                model.setStatus('ontleend');
+            },
+            terugBinnenClicked: function() {
+                model.setStatus('terug binnen');
+            }
+        };
+        controller.init();
+
+    })();
+</script>
+</body>
+</html>

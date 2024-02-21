@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        #inputNieuweNotitie {
+            width: 80%;
+            margin: 0 auto;
+            margin-top: 20px;
+            line-height: 50px;
+            font-size: 1.5rem;
+       }
+       
+       #formNieuweNotitie {
+            text-align: center;
+            background-color: #ccc;
+            height: 100px;
+            padding: 25px;
+       }
+       
+       ul {
+            list-style-type: none;
+       }
+       
+       li {
+            background-color: #ccc;
+            margin: 25px;
+            margin-top: 50px;
+            color: rgb(50, 53, 204);
+            font-size: 1.5rem;
+       }
+       
+       .content {
+            display: block;
+            padding: 10px 10px 10px 10px;
+       }
+       
+       .datum {
+            background-color: #eee;
+            color: grey;
+            padding: 5px;
+       }
+       
+       .remove {
+            background-color: #eee;
+            color: lightcoral;
+            cursor: pointer;
+            padding: 5px;
+       }
+       
+       #ulNotities {
+            margin-top: 80px;
+       }
+        
+    </style>
+</head>
+<body>
+    <form id="formNieuweNotitie">
+        <input id="inputNieuweNotitie">
+    </form>
+    <ul id="ulNotities"></ul>
+     <script>
+        "use strict";
+        let model = {
+            alleNotities: [],
+        
+            init() {
+                if (!localStorage.notities) {
+                    localStorage.notities = JSON.stringify([]);
+                }
+                model.alleNotities = JSON.parse(localStorage.notities);
+            },
+        
+            add(object) {
+                let data = model.getAlleNotities();
+                data.push(object);
+                model.saveAlleNotities(data);
+            },
+        
+            getAlleNotities() {
+                return model.alleNotities;
+            },
+        
+            saveAlleNotities(data) {
+                localStorage.notities = JSON.stringify(data);
+            },
+        
+            removeNotitie(index) {
+                model.getAlleNotities().splice(index, 1);
+                model.saveAlleNotities(model.getAlleNotities());
+            }
+        };
+        
+        let view = {
+            init() {
+                view.ulNotities = document.getElementById('ulNotities');
+                view.inputNieuweNotitie = document.getElementById('inputNieuweNotitie');
+                view.setFocus();
+                view.renderAlleNotities();
+            },
+        
+            setFocus() {
+                view.inputNieuweNotitie.focus();
+            },
+        
+            renderAlleNotities() {
+                let alleLi = '';
+                controller.getNotities().forEach(function (notitie) {
+                    alleLi +=
+                        `<li>
+                            <span class='remove'>X</span ><span class='datum'>${notitie.datum}</span>
+                            <span class='content'>
+                                ${notitie.content}
+                            </span>
+                         </li>`;
+                });
+                view.ulNotities.innerHTML = alleLi;
+            },
+        
+            renderNieuweNotitie(nieuweNotitie) {
+                view.ulNotities.innerHTML +=
+                    `<li>
+                        <span class='remove'>X</span ><span class='datum'>${nieuweNotitie.datum}</span>
+                        <span class='content'>
+                            ${nieuweNotitie.content}
+                        </span>
+                     </li>`;
+            },
+        
+            removeNotitie(li) {
+                view.ulNotities.removeChild(li);
+            },
+        
+            clearinputNieuweNotitie() {
+                view.inputNieuweNotitie.value = '';
+            }
+        };
+        
+        let controller = {
+            init() {
+                model.init();
+                view.init();
+        
+                let nieuweNotitieForm = document.getElementById('formNieuweNotitie');
+                let inhoudNotitie = document.getElementById('inputNieuweNotitie');
+        
+                nieuweNotitieForm.addEventListener('submit', function (e) {
+                    controller.addNieuweNotitie(inhoudNotitie.value);
+                    view.clearinputNieuweNotitie();
+                    e.preventDefault();
+                });
+        
+                document.addEventListener('click', controller.removeNotitie);
+            },
+        
+            addNieuweNotitie(notitieInhoud) {
+                let datum = new Date();
+                let mijnDatum = `${datum.getDate()}/${datum.getMonth() + 1}/${datum.getFullYear()}`;
+                let nieuweNotitie = { datum: mijnDatum, content: notitieInhoud };
+                model.add(nieuweNotitie);
+                view.renderNieuweNotitie(nieuweNotitie);
+                view.setFocus();
+            },
+        
+            getNotities() {
+                return model.getAlleNotities();
+            },
+        
+            removeNotitie(e) {
+                if (e.target.className === "remove") {
+                    let index = Array.from(e.target.parentNode.parentNode.children).indexOf(e.target.parentNode);
+                    model.removeNotitie(index);
+                    view.removeNotitie(e.target.parentNode);
+                    view.setFocus();
+                }
+            }
+        };
+        
+        controller.init();
+        
+     </script>
+</body>
+</html>
