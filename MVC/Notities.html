@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -13,18 +12,15 @@
             line-height: 50px;
             font-size: 1.5rem;
         }
-
         #formNieuweNotitie {
             text-align: center;
             background-color: #ccc;
             height: 100px;
             padding: 25px;
         }
-
         ul {
             list-style-type: none;
         }
-
         li {
             background-color: #ccc;
             margin: 25px;
@@ -32,40 +28,34 @@
             color: rgb(50, 53, 204);
             font-size: 1.5rem;
         }
-
         .content {
             display: block;
             padding: 10px 10px 10px 10px;
         }
-
         .datum {
             background-color: #eee;
             color: grey;
             padding: 5px;
         }
-
         .remove {
             background-color: #eee;
             color: lightcoral;
             cursor: pointer;
             padding: 5px;
         }
-
         #ulNotities {
             margin-top: 80px;
         }
     </style>
 </head>
-
 <body>
     <form id="formNieuweNotitie">
         <input id="inputNieuweNotitie">
     </form>
     <ul id="ulNotities"></ul>
-
     <script>
         "use strict";
-       (function () {
+        (function () {
     let model = {
         alleNotities: [],
         init() {
@@ -127,7 +117,6 @@
             this.inputNieuweNotitie.value = '';
         }
     };
-
     let controller = {
         init() {
             model.init();
@@ -162,11 +151,8 @@
             }
         }
     };
-
     controller.init();
 })();
-
     </script>
 </body>
-
 </html>

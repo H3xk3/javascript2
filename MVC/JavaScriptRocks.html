@@ -7,7 +7,6 @@
 </head>
 <body>
     <p id="zin"></p>
-
     <script>
         (function(){
             let model = {
@@ -15,14 +14,12 @@
                 actie: "rocks",
                 leesteken: "!"
             };
-
             let view = {
                 zin: document.getElementById('zin'),
                 toonZin: function(result) {
                     view.zin.innerHTML = result;
                 }
             };
-
             let controller = {
                 start: function() {
                     let teMakenZin = controller.maakZin(model.naam, model.actie, model.leesteken);
@@ -33,7 +30,6 @@
                     return zin;
                 }
             };
-
             controller.start();
         })();
     </script>
