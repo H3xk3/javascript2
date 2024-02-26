@@ -4,62 +4,62 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Image gallery</title>
+    <title>Afbeeldingengalerij</title>
     <link rel="stylesheet" type="text/css" href="gallery.css">
 </head>
 <body>
-    <p><img id="largeImg" src="550x400/ipad.jpg" alt="Large image"></p>
-        <div id="thumbs"></div>
-            <button id="add">Voeg afbeelding toe</button>
+    <p><img id="groteAfbeelding" src="550x400/ipad.jpg" alt="Grote afbeelding"></p>
+    <div id="thumbnails"></div>
+    <button id="toevoegen">Voeg afbeelding toe</button>
     <script>
         "use strict";
         class Model {
             constructor() {
-                this.init();
+                this.initialiseren();
             }
-            init() {
+            initialiseren() {
                 this.bestandsnamen = ["ipad.jpg", "dj.jpg", "ubuntu.jpg", "electronica.jpg"];
                 this.teller = 0;
                 this.lengte = this.bestandsnamen.length;
             }
-            getBestandsnaam(index) {
+            krijgBestandsnaam(index) {
                 return this.bestandsnamen[index];
             }
-            getTeller() {
+            krijgTeller() {
                 return this.teller;
             }
-            getLengte() {
+            krijgLengte() {
                 return this.lengte;
             }
             verhoogTeller() {
                 this.teller++;
             }
         }
-        class View {
+        class Weergave {
             constructor() {
-                this.largeImg = document.getElementById('largeImg');
-                this.divThumbs = document.getElementById('thumbs');
+                this.groteAfbeelding = document.getElementById('groteAfbeelding');
+                this.divThumbnails = document.getElementById('thumbnails');
             }
-            init(controller) {
+            initialiseren(controller) {
                 this.controller = controller;
             }
-            toonNieuweThumb(bestandsnaam) {
-                let nieuweThumb = document.createElement("a");
-                let bestandsnaamZonderExtentie = bestandsnaam.substring(0, bestandsnaam.length - 4);
-                let newHref = `550x400/${bestandsnaam}`;
-                nieuweThumb.href = newHref;
-                nieuweThumb.title = bestandsnaamZonderExtentie;
+            toonNieuweThumbnail(bestandsnaam) {
+                let nieuweThumbnail = document.createElement("a");
+                let bestandsnaamZonderExtensie = bestandsnaam.substring(0, bestandsnaam.length - 4);
+                let nieuweHref = `550x400/${bestandsnaam}`;
+                nieuweThumbnail.href = nieuweHref;
+                nieuweThumbnail.title = bestandsnaamZonderExtensie;
                 let nieuweImg = document.createElement("img");
                 nieuweImg.src = `200x150/${bestandsnaam}`;
-                nieuweImg.alt = bestandsnaamZonderExtentie;
-                nieuweThumb.appendChild(nieuweImg);
-                this.divThumbs.appendChild(nieuweThumb);
+                nieuweImg.alt = bestandsnaamZonderExtensie;
+                nieuweThumbnail.appendChild(nieuweImg);
+                this.divThumbnails.appendChild(nieuweThumbnail);
             }
-            toonGroteImage(e) {
+            toonGroteAfbeelding(e) {
                 if (e.target.nodeName === "IMG") {
-                    let anchor = e.target.parentNode;
-                    this.largeImg.src = anchor.href;
-                    this.largeImg.alt = anchor.title;
+                    let link = e.target.parentNode;
+                    this.groteAfbeelding.src = link.href;
+                    this.groteAfbeelding.alt = link.title;
                 }
                 e.preventDefault();
             }
@@ -67,34 +67,29 @@
         class Controller {
             constructor() {
                 this.model = new Model();
-                this.view = new View();
-                this.init();
+                this.weergave = new Weergave();
+                this.initialiseren();
             }
-            init() {
-                this.view.init(this);
-                this.addEventListeners();
-                this.setupInitialContent();
+            initialiseren() {
+                this.weergave.initialiseren(this);
+                this.toevoegenEventListeners();
             }
-            addEventListeners() {
-                document.getElementById('add').addEventListener('click', () => this.add());
-                document.getElementById('thumbs').addEventListener('click', (e) => this.view.toonGroteImage(e));
+            toevoegenEventListeners() {
+                document.getElementById('toevoegen').addEventListener('click', () => this.toevoegen());
+                document.getElementById('thumbnails').addEventListener('click', (e) => this.weergave.toonGroteAfbeelding(e));
             }
-            add() {
-                if (this.model.getTeller() < this.model.getLengte()) {
-                    let bestandsnaam = this.model.getBestandsnaam(this.model.getTeller());
-                    this.view.toonNieuweThumb(bestandsnaam);
+            toevoegen() {
+                if (this.model.krijgTeller() < this.model.krijgLengte()) {
+                    let bestandsnaam = this.model.krijgBestandsnaam(this.model.krijgTeller());
+                    this.weergave.toonNieuweThumbnail(bestandsnaam);
                     this.model.verhoogTeller();
                 }
-            }
-            toonGroteImage(e) {
-                this.view.toonGroteImage(e);
             }
         }
         const controller = new Controller();
     </script>
 </body>
 </html>
-
 
 
 
