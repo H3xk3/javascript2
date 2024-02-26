@@ -9,78 +9,51 @@
         body {
             font-family: Arial, sans-serif;
             margin: 20px;
-            padding: 20px;
-        }
-
+            padding: 20px;}
         h1 {
-            color: #333;
-        }
-
+            color: #333;}
         h2 {
-            color: #555;
-        }
-
+            color: #555;}
         form {
-            margin-bottom: 20px;
-        }
-
+            margin-bottom: 20px;}
         label {
             display: block;
             margin-bottom: 5px;
             font-weight: bold;
-            color: #333;
-        }
-
+            color: #333;}
         input[type="text"] {
             width: 200px;
             padding: 5px;
             margin-bottom: 10px;
             border: 1px solid #ccc;
             border-radius: 4px;
-            box-sizing: border-box;
-        }
-
+            box-sizing: border-box;}
         button {
             padding: 8px 16px;
             background-color: #007bff;
             color: #fff;
             border: none;
             border-radius: 4px;
-            cursor: pointer;
-        }
-
+            cursor: pointer;}
         button:hover {
-            background-color: #0056b3;
-        }
-
+            background-color: #0056b3;}
         table {
             width: 100%;
             border-collapse: collapse;
-            margin-top: 20px;
-        }
-
+            margin-top: 20px;}
         th, td {
             border: 1px solid #ddd;
             padding: 8px;
-            text-align: left;
-        }
-
+            text-align: left;}
         th {
-            background-color: #f2f2f2;
-        }
-
+            background-color: #f2f2f2;}
         tr:nth-child(even) {
-            background-color: #f9f9f9;
-        }
-
+            background-color: #f9f9f9;}
         .editable {
             width: 100px;
-            padding: 2px;
-        }
-
+            padding: 2px;}
         .action-buttons button {
-            margin-right: 5px;
-        }
+            margin-right: 5px;}
     </style>
 </head>
 <body>
@@ -88,10 +61,8 @@
     <div id="weergaveGegevens"></div>
     <h2>Voeg gegevens toe</h2>
     <div id="toevoegenFormulier"></div>
-
     <script>
         "use strict";
-
         class Product {
             constructor(id, naam, prijs, hoeveelheid) {
                 this.id = id;
@@ -100,29 +71,24 @@
                 this.hoeveelheid = hoeveelheid;
             }
         }
-
         class Voorraad {
             constructor() {
                 this.alleProducten = [];
                 this.init();
             }
-
             init() {
                 const opgeslagenData = localStorage.getItem('inventaris');
                 if (opgeslagenData) {
                     this.alleProducten = JSON.parse(opgeslagenData);
                 }
             }
-
             voegNieuwProductToe(product) {
                 this.alleProducten.unshift(product);
                 this.bewaarNaarLocalStorage();
             }
-
             krijgAlleProducten() {
                 return this.alleProducten;
             }
-
             updateProduct(id, bijgewerktProduct) {
                 const index = this.alleProducten.findIndex(product => product.id === id);
                 if (index !== -1) {
@@ -130,23 +96,19 @@
                     this.bewaarNaarLocalStorage();
                 }
             }
-
             verwijderProduct(id) {
                 this.alleProducten = this.alleProducten.filter(product => product.id !== id);
                 this.bewaarNaarLocalStorage();
             }
-
             bewaarNaarLocalStorage() {
                 localStorage.setItem('inventaris', JSON.stringify(this.alleProducten));
             }
         }
-
         class Weergave {
             constructor() {
                 this.tabelContainer = document.getElementById('weergaveGegevens');
                 this.toevoegenFormulierContainer = document.getElementById('toevoegenFormulier');
             }
-
             showHeadingRecords() {
                 this.tabelContainer.innerHTML = '';
                 const tabel = document.createElement('table');
@@ -159,7 +121,6 @@
                 });
                 this.tabelContainer.appendChild(tabel);
             }
-
             displayRecord(product) {
                 const tabel = this.tabelContainer.querySelector('table');
                 const rij = tabel.insertRow(-1);
@@ -198,7 +159,6 @@
                 celActies.appendChild(updateKnop);
                 celActies.appendChild(verwijderKnop);
             }
-
             showAddingInputs() {
                 this.toevoegenFormulierContainer.innerHTML = '';
                 const form = document.createElement('form');
@@ -225,7 +185,6 @@
                 form.appendChild(toevoegenKnop);
                 this.toevoegenFormulierContainer.appendChild(form);
             }
-
             clearInputs() {
                 const inputs = this.toevoegenFormulierContainer.querySelectorAll('input');
                 inputs.forEach(input => {
@@ -233,7 +192,6 @@
                 });
             }
         }
-
         class Controller {
             constructor() {
                 this.rijTeller = 1;
@@ -241,20 +199,17 @@
                 this.weergave = new Weergave();
                 this.init();
             }
-
             init() {
                 this.weergave.showHeadingRecords();
                 this.weergave.showAddingInputs();
                 this.toonAlleRecordLijst();
             }
-
             toonAlleRecordLijst() {
                 const producten = this.voorraad.krijgAlleProducten();
                 producten.forEach(product => {
                     this.weergave.displayRecord(product);
                 });
             }
-
             maakNieuwProduct() {
                 const id = document.getElementById('id').value;
                 const naam = document.getElementById('naam').value;
@@ -265,7 +220,6 @@
                 this.weergave.displayRecord(nieuwProduct);
                 this.weergave.clearInputs();
             }
-
             updateRecord(id, nieuweNaam, nieuwePrijs, nieuweHoeveelheid) {
                 const bijgewerktProduct = this.voorraad.krijgAlleProducten().find(product => product.id === id);
                 if (bijgewerktProduct) {
@@ -275,7 +229,6 @@
                     this.voorraad.updateProduct(id, bijgewerktProduct);
                 }
             }
-
             verwijderRecord(id) {
                 this.voorraad.verwijderProduct(id);
                 const tabel = document.querySelector('table');
@@ -288,7 +241,6 @@
                 }
             }
         }
-
         const controller = new Controller();
     </script>
 </body>
